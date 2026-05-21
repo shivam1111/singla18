@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_size_size_user,size.size_user,model_size_size,base.group_user,1,1,1,1
+access_corner_type_user,corner.type_user,model_corner_type,base.group_user,1,1,1,1
+access_material_grade_user,grade.material_grade,model_material_grade,base.group_user,1,1,1,1
+acess_material_grade_spec_user,spec.material_grade_spec,model_material_grade_spec,base.group_user,1,1,1,1
+access_material_element_user,spec.material_element,model_material_element,base.group_user,1,1,1,1
+access_material_grade_spec_chem_user	,spec.material_grade_spec_chem,model_material_grade_spec_chem,base.group_user,1,1,1,1
+access_heat_heat_user,heat.Heat_heat,model_heat_heat,base.group_user,1,1,1,1
+access_mill_heat_chem_user,heat.mill_heat_chem,model_mill_heat_chem,base.group_user,1,1,1,1
+access_ingot_size_user,heat.ingot_size,model_ingot_size,base.group_user,1,1,1,1
+access_mill_production,mill.production,model_mill_production,stock.group_stock_user,1,1,1,1
+access_production_order,production.order,model_production_order,base.group_user,1,1,1,1
+access_production_order_line,production.order.line,model_production_order_line,base.group_user,1,1,1,1
+access_mill_production_line,mill.production.line,model_mill_production_line,base.group_user,1,1,1,1

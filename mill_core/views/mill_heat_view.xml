@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    mill.heat-->
+    <record id="view_mill_heat_tree" model="ir.ui.view">
+        <field name="name">heat.heat.tree</field>
+        <field name="model">heat.heat</field>
+        <field name="arch" type="xml">
+            <list string="Heats" decoration-success="state == 'pass'" decoration-info="state == 'draft'"  decoration-danger="state == 'rejected'">
+                <field name = "date" />
+                <field name = "name" />
+                <field name = "furnace_heat_no" />
+                <field name = "grade_spec_id" />
+                <field name = "size" />
+                <field name = "move_id" />
+                <field name = "chemistry_fail_reason" />
+                <button
+                    name="action_validate_chemistry"
+                    type="object"
+                    icon="fa-check-circle"
+                    string="Validate"
+                    class="btn-primary" />
+
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mill_heat_form" model="ir.ui.view">
+        <field name="name">material.heat.form</field>
+        <field name="model">heat.heat</field>
+        <field name="arch" type="xml">
+            <form string="Heats">
+                <sheet>
+		    		<header>
+		    			<field name = "state"  widget = "statusbar" statusbar_visible="draft,pass,rejected" clickable = "1" />
+                    </header>
+                    <div class="oe_button_box" name="button_box">
+                                <button name="action_validate_chemistry"
+                                        type="object"
+                                        class="oe_stat_button"
+                                        icon="fa-flask">
+                                    <span class="o_stat_text">Validate Chemistry</span>
+                                </button>
+                                <button name="action_view_production_lines"
+                                    type="object"
+                                    string="Production Lines"
+                                    icon="fa-list"/>
+                            </div>
+	                    <div class="oe_title oe_left">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group>
+								<field name = "partner_id" />
+	                    		<field name = "furnace_heat_no" />
+	                    		<field name = "supervisor_id" />
+                                <field name = "move_id" />
+	                    	</group>
+	                    	<group>
+	                    		<field name = "date" />
+	                    		<field name = "grade_spec_id" required = "1"  context = "{'onchange':True}"/>
+	                    		<field name="chemistry_result"  decoration-success="chemistry_result == 'pass'" decoration-danger="chemistry_result == 'fail'"/>
+                                <field name = "chemistry_fail_reason" invisible="chemistry_result == 'pass'" />
+                                <field name = "size_id" placeholder = "Adding Size Manually"/>
+	                    	</group>
+                        </group>
+                        <group string = "Inspection" col="6">
+                            <group >
+                                <field name = "surface_inspection" />
+                            </group>
+                            <group>
+                                <field name = "grinding" />
+                            </group>
+                            <group>
+                                <field name = "xrf_tested" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string = "Chemical Composition">
+                                <field name = "line_ids" nolabel="1">
+                                    <list  editable="bottom" col="4">
+                                        <field name = "element_id" />
+                                        <field name = "min_val" />
+                                        <field name = "max_val" />
+	                    				<field name = "furnace_val" />
+	                    				<field name = "actual_val" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mill Heat Search -->
+    <record id="view_mill_heat_search" model="ir.ui.view">
+        <field name="name">mill.heat.search</field>
+        <field name="model">heat.heat</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name = "furnace_heat_no"/>
+                <field name = "grade_spec_id"/>
+                <filter
+                name="draft"
+                string="Draft"
+                domain="[('state','=','draft')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Grade"
+                            name = "group_grade"
+                            context="{'group_by':'grade_spec_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mill_heat_views" model="ir.actions.act_window">
+        <field name="name">Heats</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">heat.heat</field>
+        <field name="view_mode">list,form</field>
+        <field name = "context">{"search_default_draft":1}</field>
+    </record>
+
+   <menuitem
+           id= "mill_heat_view_submenu_v2"
+           parent= "mill_core.menu_mill_heats"
+           sequence= "4"
+           action = "action_mill_heat_views"
+       />
+</odoo>

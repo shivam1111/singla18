@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_production_order">
+        <t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+				<t t-foreach="docs" t-as="doc">
+                    <div class="page">
+					<div class="header o_standard_header o_company_1_layout">
+						<div class="row"></div>
+					</div>
+						<div class="oe_structure"/>
+                            <div class = "row" >
+                                    <h1>
+                                        <div class="oe_leftalign" ><t t-esc = "doc.name" /></div>
+                                        <div class ="oe_rightalign"><span t-field="doc.date" t-options ='{"format": "dd/MM/yyyy"}'  /></div>
+                                    </h1>
+                            </div>
+                            <div class = "row"  >
+                                <table class = "table table-condensed">
+									<thead>
+										<th>Bundle No.</th>
+										<th>Size</th>
+										<th>Tolerance</th>
+										<th>Corner</th>
+										<th>Pcs</th>
+										<th>Kg/Pc</th>
+										<th>Qty</th>
+										<th>Grade</th>
+										<th>Furncace</th>
+										<th>CC</th>
+										<th>Heat No</th>
+										<th>Inspection</th>
+										<th>Remarks</th>
+									</thead>
+                                    <tbody>
+										<t t-foreach = "doc.line_ids" t-as = "l">
+											<tr>
+												<td><t t-esc="l.name" /></td>
+												<td><t t-esc="l.size_id.name" /></td>
+												<td><t t-esc="l.tolerance or '-'" /></td>
+												<td><t t-esc="l.corner_id.name" /></td>
+												<td><t t-esc="l.pcs" /></td>
+												<td><t t-esc="l.kg_per_pc" /></td>
+												<td><t t-esc="l.qty" /></td>
+												<td><t t-esc="l.grade_id.name" /></td>
+												<td><t t-esc="l.partner_id.name" /></td>
+												<td><t t-esc="l.cc" /></td>
+												<td><t t-esc="l.heat_no" /></td>
+												<td><input type="checkbox"   t-att-checked="l.is_inspection"/></td>
+												<td><t t-esc="l.remarks" /></td>
+											</tr>
+										</t>
+                                    </tbody>
+                                    <tr>
+                                            <td><strong>Total</strong></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong><t t-esc="sum(l.qty for l in doc.line_ids)" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+				            <t t-if = "doc.remarks">
+					            <div class = "row" style = "padding: 10px;" >
+					            		<strong>Note:</strong><p t-field = "doc.remarks" />
+					            </div>
+				            </t>
+                    </div>
+					<div class = "footer o_standard_footer o_company_#{company.id}_layout">
+					</div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

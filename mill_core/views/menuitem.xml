@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mill_root" name="Mill Management" sequence="10"/>
+    <menuitem id="menu_mill_configuration" name="Configuration" parent="menu_mill_root"/>
+    <menuitem id="menu_mill_stock" name="Stock" parent="menu_mill_root"/>
+    <menuitem id="menu_mill_heats" name="Heats" parent="menu_mill_root"/>
+    <menuitem id="menu_mill_production" name="Production" parent="menu_mill_root"/>
+
+
+    <menuitem id = "menu_product_template" name = "Product" parent="menu_mill_stock"
+              action = "stock.product_template_action_product" />
+    <menuitem id = "menu_product_product" name = "Product Variant" parent = "menu_mill_stock"
+              action = "stock.stock_product_normal_action"/>
+    <menuitem id ="menu_product_attribute" name = "Product Attributes" parent = "menu_mill_stock"
+              action ="product.attribute_action"/>
+
+</odoo>
+
+

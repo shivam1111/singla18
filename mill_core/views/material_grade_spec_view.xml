@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    View of material.grade.spec-->
+    <record id="view_material_grade_spec_list" model="ir.ui.view">
+        <field name="name">material.grade.spec.list</field>
+        <field name="model">material.grade.spec</field>
+        <field name="arch" type="xml">
+            <list string="Grade Specifications">
+                <field name="grade_id"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_material_grade_spec_form" model="ir.ui.view">
+        <field name="name">material.grade.spec.form</field>
+        <field name="model">material.grade.spec</field>
+        <field name="arch" type="xml">
+            <form string="Grade Specification">
+                <sheet>
+                    <group>
+                        <field name="grade_id"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Chemistry">
+                            <field name="chemistry_ids">
+                                <list editable="bottom">
+                                    <field name = "sequence" widget="handle"/>
+                                    <field name="element_id"/>
+                                    <field name="min_value"/>
+                                    <field name="max_value"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Grade Specification Search -->
+    <record id="view_material_grade_spec_search" model="ir.ui.view">
+        <field name="name">material.grade.spec.search</field>
+        <field name="model">material.grade.spec</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="grade_id"/>
+                <field name="name"/>
+                <filter name="filter_active"
+                        string="Active"
+                        domain="[('active','=',True)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Grade"
+                            name = "group_grade"
+                            context="{'group_by':'grade_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action -->
+    <record id="action_material_grade_spec" model="ir.actions.act_window">
+        <field name="name">Grade Specifications</field>
+        <field name="res_model">material.grade.spec</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_material_grade_spec_search"/>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_material_grade_spec"
+              name="Grade Specifications"
+              parent="mill_core.menu_mill_configuration"
+              action="action_material_grade_spec"
+              sequence="30"/>
+
+<!--    material.element-->
+    <record id="view_material_element_list" model="ir.ui.view">
+        <field name="name">material.element.list</field>
+        <field name="model">material.element</field>
+        <field name="arch" type="xml">
+            <list string="Elements" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active" />
+            </list>
+        </field>
+    </record>
+    <!-- Action -->
+    <record id="action_material_element" model="ir.actions.act_window">
+        <field name="name">Elements</field>
+        <field name="res_model">material.element</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_material_element"
+              name="Elements"
+              parent="mill_core.menu_mill_configuration"
+              action="action_material_element"
+              sequence="30"/>
+
+</odoo>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VIEWS -->
+    <record id="view_size_size_tree" model="ir.ui.view">
+        <field name="name">size.size.tree</field>
+        <field name="model">size.size</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" delete="true"  >
+                <field name="name" width="20%" />
+                <field name = "shape"  width="10%" />
+                <field name="corner_id" width="10%" required="shape == 'flat'"/>
+                <field name="width_mm" invisible="shape != 'flat'" width="10%"/>
+                <field name = "thickness_mm" invisible="shape != 'flat'" width="10%"/>
+                <field name="diameter_mm" invisible="shape != 'round'" width="10%" />
+                <field name = "section_weight_kg_m" width="20%" />
+                <field name = "active" width = "10%"/>
+            </list>
+        </field>
+    </record>
+
+<!--    size search view-->
+    <record id="view_size_size_search" model="ir.ui.view">
+        <field name="name">size.size.search</field>
+        <field name="model">size.size</field>
+        <field name="arch" type="xml">
+            <search>
+
+                <!-- Global text search -->
+                <field name="name" string="Size"
+                filter_domain="[('name', 'ilike', self)]"/>
+                <field name="corner_id"/>
+
+                <!-- Quick filters -->
+                <filter string="Flat"
+                        name="filter_flat"
+                        domain="[('corner_id.shape', '=', 'flat')]"/>
+                <filter string="Round"
+                        name="filter_round"
+                        domain="[('corner_id.shape', '=', 'round')]"/>
+
+                <!-- Group by -->
+                <group expand="0" string="Group By">
+                    <filter string="Shape"
+                            name="group_shape"
+                            context="{'group_by': 'corner_id'}"/>
+                    <filter string="Size"
+                            name="group_size"
+                            context="{'group_by': 'name'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_size_size" model="ir.actions.act_window">
+        <field name="name">Sizes</field>
+        <field name="res_model">size.size</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_size_size_search"/>
+    </record>
+
+    <menuitem id="menu_size_size"
+              name="Sizes"
+              parent="mill_core.menu_mill_configuration"
+              action="action_size_size"/>
+
+    <record id="view_corner_type_tree" model="ir.ui.view">
+        <field name="name">corner.type.tree</field>
+        <field name="model">corner.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" delete="true"  >
+                <field name="name" width="20%" />
+            </list>
+        </field>
+    </record>
+    <record id="action_corner_type" model="ir.actions.act_window">
+        <field name="name">Corner</field>
+        <field name="res_model">corner.type</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem id="menu_corner_type"
+              name="Corner"
+              parent="mill_core.menu_mill_configuration"
+              action="action_corner_type"/>
+
+</odoo>

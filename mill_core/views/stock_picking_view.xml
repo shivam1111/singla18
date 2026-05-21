@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_core_form" model="ir.ui.view">
+        <field name="name">stock.picking.mill.core.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="before">
+                <header>
+                    <field name="state_heat" invisible="picking_type_code != 'incoming'" widget="statusbar" statusbar_visible="pending,done" options="{'clickable': '1'}"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name = "invoice_no" invisible="picking_type_code != 'incoming'" />
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/list/field[@name='quantity']" position="after">
+                <button name="action_view_move" type="object" string="Heats" invisible="parent.picking_type_code != 'incoming'"  />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_core_tree" model="ir.ui.view">
+        <field name="name">stock.picking.mill.core.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name = "picking_type_code" invisible="1" />
+                    <field name = "invoice_no" invisible="picking_type_code != 'incoming'" />
+            </xpath>
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="state_heat" invisible = "state != 'done' or picking_type_code != 'incoming'"
+                       string = "Heat Status" optional="show" widget="badge"
+                        decoration-danger="state_heat=='pending'"  decoration-success="state_heat == 'done'" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Adding Action of stock Picking to Update Incoming Material heats -->
+
+    <record id="action_picking_tree_incoming_heats" model="ir.actions.act_window">
+        <field name="name">Incoming Material</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,kanban,form,calendar,activity</field>
+        <field name="domain">[('state', '=', 'done')]</field>
+        <field name="context">{'contact_display': 'partner_address', 'restricted_picking_type_code': 'incoming', 'search_default_reception': 1,'search_default_done': 1,'group_by': ['partner_id']}</field>
+        <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+    </record>
+   <menuitem
+           id= "mill_update_heat_view_submenu_v2"
+           parent= "mill_core.menu_mill_heats"
+           sequence= "4"
+           action = "action_picking_tree_incoming_heats"
+       />
+
+</odoo>

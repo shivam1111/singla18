@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_landscape_no_logo" model="report.paperformat">
+        <field name="name">A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+        <field name="disable_shrinking" eval="False"/>
+    </record>
+
+   <record id="action_production_order_report" model="ir.actions.report">
+       <field name="name">Production Order</field>
+       <field name="model">production.order</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">mill_core.template_production_order</field>
+       <field name="report_file">mill_core.production_order_report</field>
+       <field name="paperformat_id" ref="paperformat_landscape_no_logo"/>
+       <field name="print_report_name">'%s' % (object.name)</field>
+       <field name="binding_model_id" ref="model_production_order"/>
+       <field name="binding_type">report</field>
+   </record>
+
+    <record id="action_report_productions_xlsx" model="ir.actions.report">
+        <field name="name">Production Report</field>
+        <field name="model">mill.production</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">mill_core.mill_production_report</field>
+        <field name="print_report_name">'%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_mill_production"/>
+        <field name="binding_type">report</field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+</odoo>
