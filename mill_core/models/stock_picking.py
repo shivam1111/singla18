@@ -9,3 +9,5 @@ class StockPicking(models.Model):
         ('pending', 'Heat Pending'),
         ('done', 'Heat Updated'),
     ], default='pending',name="Heat Status")
+
+    order_id = fields.Many2one('mill.production',string='Production Order')

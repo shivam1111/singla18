@@ -18,7 +18,8 @@ class MillProductionLine(models.Model):
                 ).id,
                 'picking_type_id': self.env.ref('stock.picking_type_internal').id,
                 'location_id': self.product_id.property_stock_production.id,
-                'origin': "Return of " + self.picking_id.name,
+                'origin': "Return of " + self.picking_id.name + " / " + self.name,
+                'order_id':self.production_id.id,
                 'move_ids_without_package': [
                     (0, 0, {
                         'name': '/',
@@ -30,6 +31,8 @@ class MillProductionLine(models.Model):
             })
             picking.button_validate()
             self.return_picking_id = picking
+            self.qty = 0.0
+
     def action_view_production_order_line(self):
         self.ensure_one()
         return {
@@ -70,17 +73,17 @@ class MillProductionLine(models.Model):
 
     name = fields.Char('Name')
     sequence = fields.Integer('sequence', help="Sequence for the handle.",default=10)
-    qty = fields.Float('Qty')
+    qty = fields.Float('Qty',default=0.0)
     pcs = fields.Integer('Pcs')
     partner_id = fields.Many2one('res.partner', help="Mostly furnce, but depends on usage", string="Furnace")
     heat_ids = fields.Many2many('heat.heat',string ='Heats')
-    size_id = fields.Many2one('size.size',string  = "Size")
+    size_id = fields.Many2one('size.size',string = "Size",required=True)
     batch = fields.Float('No. of Batch',help = "Dhakku")
     kg_per_pc = fields.Float('Kg/pc')
     production_id = fields.Many2one('mill.production','Production',ondelete='cascade')
     scrap = fields.Float('Scrap')
     scrap_percentage = fields.Float('Scrap%',compute = "_compute_scrap")
-    product_id = fields.Many2one('product.product','Grade',domain=[('product_role','=','raw')])
+    product_id = fields.Many2one('product.product','Grade',domain=[('product_role','=','raw')],required=True)
     remarks = fields.Char("Remarks")
     picking_id = fields.Many2one('stock.picking','Stock Picking',help="internal transfer")
     return_picking_id = fields.Many2one('stock.picking','Return Stock Picking',help="internal transfer")
@@ -190,7 +193,8 @@ class MillProduction(models.Model):
                     ).id,
                     'picking_type_id':self.env.ref('stock.picking_type_internal').id,
                     'location_dest_id':line.product_id.property_stock_production.id,
-                    'origin':order.name,
+                    'origin':order.name+" / "+line.name,
+                    'order_id':order.id,
                     'move_ids_without_package':[
                         (0, 0, {
                             'name':'/',
@@ -204,6 +208,20 @@ class MillProduction(models.Model):
                 line.picking_id = picking
             order.state = 'done'
         return True
+
+    @api.depends('production_line_ids','production_line_ids.picking_id', 'production_line_ids.return_picking_id')
+    def _compute_all_picking_ids(self):
+        for production in self:
+            # pickings = self.env['stock.picking']
+            # # Loop through the lines to gather both types of pickings
+            # for line in production.production_line_ids:
+            #     if line.picking_id:
+            #         pickings |= line.picking_id
+            #     if line.return_picking_id:
+            #         pickings |= line.return_picking_id
+            # Remove any duplicate IDs (just in case) and assign to the field
+            # In computed One2many fields, you write the recordset or IDs directly
+            production.all_picking_ids = self.env['stock.picking'].search([('order_id', '=', production.id)])
 
     name = fields.Char('Name', default='/', required=True)
     state = fields.Selection(SELECTION,string='State',default='draft')
@@ -222,7 +240,6 @@ class MillProduction(models.Model):
     total_units = fields.Float("Total Units Consumed", compute="_compute_units", store=True)
     units_per_mt = fields.Float('Units/MT', compute='_compute_units_mt', digits=(16, 2))
     kwh_mt = fields.Float('KWH/MT', compute='_compute_kwh_mt')
-    size_id = fields.Many2one('size.size', related="production_line_ids.size_id", string="Size")
     water_units_opening = fields.Float('Water Units Opening')
     water_units_closing = fields.Float('Water Units Closing')
     solar_units_opening_kwh = fields.Float('Solar Units Opening (KWH)')
@@ -249,3 +266,9 @@ class MillProduction(models.Model):
         string='Sizes'
     )
     order_id = fields.Many2one('production.order','Production Order')
+    all_picking_ids = fields.Many2many(
+        'stock.picking',
+        compute='_compute_all_picking_ids',
+        string='All Stock Moves (Delivery & Returns)',
+        compute_sudo=True
+    )

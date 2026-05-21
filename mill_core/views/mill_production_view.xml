@@ -130,6 +130,19 @@
 										</group>
 									</group>
 								</page>
+								<page string = "Stock Movement">
+									<field name="all_picking_ids" readonly="1">
+										<list string="Transfers">
+											<field name="name" string="Reference"/>
+											<field name="location_id"/>
+											<field name="location_dest_id"/>
+											<field name="origin"/>
+											<field name="state" widget="badge"
+												   decoration-success="state == 'done'"
+												   decoration-info="state not in ('done', 'cancel')"/>
+										</list>
+									</field>
+								</page>
 	                    </notebook>
 	                    <group>
 	                    		<field name = "remarks" nolabel = "1" placeholder = "Remarks"/>
@@ -185,7 +198,7 @@
 		<field name="arch" type="xml">
 			<form string  = "Production" >
 				<header>
-					<button invisible="state == 'draft' "  name="action_return_picking" type="object" string="Return" class="oe_highlight" />
+					<button invisible="state == 'draft' or return_picking_id"  name="action_return_picking" type="object" string="Return" class="oe_highlight" />
 					<field name = "state" widget="statusbar" clickable="1" statusbar_visible="draft,done" />
 				</header>
 				<sheet>
