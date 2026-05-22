@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- 1. Custom Paper Format Configuration -->
+    <record id="paperformat_mtc_compact" model="report.paperformat">
+        <field name="name">MTC Single Page Compact Format</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
     <!-- Report Action Trigger Configuration -->
     <record id="action_report_chemical_composition" model="ir.actions.report">
         <field name="name">Mill Test Certificate</field>
         <field name="model">chemical.composition</field>
-        <field name="report_type">qweb-html</field>
+        <field name="report_type">qweb-pdf</field>
         <field name="report_name">test_certificate.report_mtc_document</field>
         <field name="report_file">test_certificate.report_mtc_document</field>
         <field name="print_report_name">'MTC_%s' % (object.name)</field>
         <field name="binding_model_id" ref="model_chemical_composition"/>
+        <field name="paperformat_id" ref="paperformat_mtc_compact"/>
         <field name="binding_type">report</field>
     </record>
 
@@ -16,13 +32,22 @@
     <template id="report_mtc_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
-                    <div class="page" style="font-family: 'Helvetica', 'Arial', sans-serif; color: #333; font-size: 12px;">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-family: 'Helvetica', 'Arial', sans-serif; color: #333; font-size: 14px;">
 
-                        <!-- Top Title Branding Strip -->
-                        <div class="text-center" style="border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 20px;">
-                            <h4 style="font-weight: bold; margin-bottom: 2px; color: #333;">TEST CERTIFICATE</h4>
-                            <p class="text-muted" style="font-size: 11px;">Quality Assurance Department | Test Certificate According to EN10204, Type 3.1</p>
+                        <!-- Top Title & Logo Branding Strip Grid -->
+                        <div class="row align-items-center" style="border-bottom: 2px solid #333; padding-bottom: 8px; margin-bottom: 20px;">
+                            <!-- Left Side: Company Logo -->
+                            <div class="col-3">
+                                <img src="/test_certificate/static/description/logo.png" style="max-height: 55px; width: auto; display: block; margin-left: 0;"/>
+                            </div>
+                            <!-- Center Aligned Header and Sub-Header Block -->
+                            <div class="col-6 text-center">
+                                <h4 style="font-weight: bold; margin-bottom: 2px; color: #333; margin-top: 0; letter-spacing: 1px;">TEST CERTIFICATE</h4>
+                                <p class="text-muted" style="font-size: 11px; margin-bottom: 0; white-space: nowrap;">Quality Assurance Department | Test Certificate According to EN10204, Type 3.1</p>
+                            </div>
+                            <!-- Placeholder right column to cleanly balance center-alignment mechanics -->
+                            <div class="col-3"></div>
                         </div>
 
                         <!-- Customer Details Info Card -->
@@ -110,8 +135,8 @@
 
                         <!-- Middle Row Grid Block: Inclusion Rating & Gas Analysis Side-by-Side -->
                         <div class="row" style="margin-top: 25px;">
-                            <!-- Left Sub-Column: Inclusion Rating Table Layout -->
-                            <div class="col-6">
+                            <!-- Left Sub-Column Layout -->
+                            <div class="col-6" style="padding-right: 10px;">
                                 <h6 style="color: #333; font-weight: bold;">Inclusion Rating (As per IS 4163 / ASTM E45)</h6>
                                 <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; table-layout: fixed; width: 100%;">
                                     <thead>
@@ -152,8 +177,8 @@
                                 </table>
                             </div>
 
-                            <!-- Right Sub-Column: Gas Analysis Block -->
-                            <div class="col-6">
+                            <!-- Right Sub-Column Layout -->
+                            <div class="col-6" style="padding-left: 10px;">
                                 <h6 style="color: #333; font-weight: bold;">Gas Analysis (in ppm)</h6>
                                 <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; table-layout: fixed; width: 100%;">
                                     <thead>
@@ -179,9 +204,9 @@
                         <!-- Lower Double Column Grid Layout Split: Mechanical Properties vs NDT Verifications -->
                         <div class="row" style="margin-top: 25px;">
                             <!-- Left Block: Mechanical Data Features -->
-                            <div class="col-6">
+                            <div class="col-6" style="padding-right: 10px;">
                                 <h6 style="color: #333; font-weight: bold; margin-bottom: 10px;">Mechanical &amp; Metallurgical Properties</h6>
-                                <table class="table table-bordered table-sm" style="border: 1px solid #333; font-size: 11px;">
+                                <table class="table table-bordered table-sm" style="border: 1px solid #333; font-size: 12px; margin-bottom: 0;">
                                     <tbody>
                                         <tr>
                                             <td style="background-color: #f5f5f5; width: 55%; border: 1px solid #333;"><strong>Ultimate Tensile Strength (UTS)</strong></td>
@@ -224,9 +249,9 @@
                             </div>
 
                             <!-- Right Block: Quality Control Check Checkboxes Matrix -->
-                            <div class="col-6">
+                            <div class="col-6" style="padding-left: 10px;">
                                 <h6 style="color: #333; font-weight: bold; margin-bottom: 10px;">NDT &amp; Quality Verification</h6>
-                                <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; font-size: 11px;">
+                                <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; font-size: 12px; margin-bottom: 0;">
                                     <thead>
                                         <tr style="background-color: #f5f5f5; color: #333; border-bottom: 2px solid #333;">
                                             <th class="text-left" style="width: 65%; border: 1px solid #333;">Test Parameters</th>
@@ -271,17 +296,21 @@
                                             <td class="text-left" style="border: 1px solid #333;">Hardness Max. (BHN)</td>
                                             <td style="font-weight: bold; color: green; border: 1px solid #333;"><span t-field="o.max_hardness" /></td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;"><span>-</span></td>
+                                            <td style="font-weight: bold; color: green; border: 1px solid #333;"><span>-</span></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <!-- Sign-off Block Strip Row -->
-                        <div class="row" style="margin-top: 35px;">
-                            <div class="col-6 text-right offset-6" style="margin-top: 20px;">
-                                <p><strong>For Singla Steel &amp; Allied Industries</strong></p>
-                                <br/><br/>
-                                <p style="border-top: 1px dashed #ccc; display: inline-block; width: 220px; padding-top: 5px;">Authorised Signatory</p>
+                        <!-- Sign-off Block: Safe structural spacing to lock it to the bottom right without overlapping -->
+                        <!-- CHANGED: Replaced absolute positioning with page-break defense and clean layout grid tracking -->
+                        <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
+                            <div class="col-5 offset-7 text-right">
+                                <p style="margin-bottom: 60px; white-space: nowrap;"><strong>For Singla Steel &amp; Allied Industries</strong></p>
+                                <p style="border-top: 1px dashed #333; display: block; width: 100%; padding-top: 5px; margin-bottom: 0;">Authorised Signatory</p>
                             </div>
                         </div>
 
