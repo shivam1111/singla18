@@ -69,7 +69,7 @@
                                 </tr>
                                 <tr>
                                     <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Grade</strong></td>
-                                    <td style="border: 1px solid #333;"><span t-field="o.grade_id.name"/></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.grade_id.grade_id.name"/></td>
                                     <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Date</strong></td>
                                     <td style="border: 1px solid #333;"><span t-field="o.date" t-options='{"widget": "date"}'/></td>
                                 </tr>
@@ -95,7 +95,7 @@
                                 <tr style="background-color: #f5f5f5; color: #333; border-bottom: 2px solid #333;">
                                     <th style="width: 14%; text-align: left; font-weight: bold; vertical-align: middle; border: 1px solid #333;">Metric</th>
                                     <t t-foreach="o.line_ids" t-as="line">
-                                        <th style="font-weight: bold; vertical-align: middle; border: 1px solid #333;">%<span t-field="line.element_id.name"/></th>
+                                        <th style="font-weight: bold; text-align: center; vertical-align: middle; border: 1px solid #333;">%<span t-field="line.element_id.code"/></th>
                                     </t>
                                 </tr>
                             </thead>
@@ -184,17 +184,17 @@
                                     <thead>
                                         <tr style="background-color: #f5f5f5; color: #333; font-weight: bold; border-bottom: 2px solid #333;">
                                             <th style="width: 25%; text-align: left; border: 1px solid #333;">Gas Element</th>
-                                            <th style="border: 1px solid #333;">O2 (Oxygen)</th>
-                                            <th style="border: 1px solid #333;">H2 (Hydrogen)</th>
-                                            <th style="border: 1px solid #333;">N2 (Nitrogen)</th>
+                                            <th style="border: 1px solid #333;">O<sub>2</sub> (Oxygen)</th>
+                                            <th style="border: 1px solid #333;">H<sub>2</sub> (Hydrogen)</th>
+                                            <th style="border: 1px solid #333;">N<sub>2</sub> (Nitrogen)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">Actual</td>
-                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.name"/></td>
-                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.name"/></td>
-                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.name"/></td>
+                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.gas_o2"/></td>
+                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.gas_h2"/></td>
+                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.gas_n2"/></td>
                                         </tr>
                                     </tbody>
                                 </table>

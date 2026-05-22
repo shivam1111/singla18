@@ -99,9 +99,6 @@
                             </group>
 
                         </page>
-                        <page string = "Remarks" >
-                            <field name = "remarks" placeholder="Remarks" nolabel = "1"/>
-                        </page>
                         <page string = "Inclusion Rating">
                             <field name = "inclusion_rating_ids" nolabel = "1">
                                 <list string = "Inclusion Rating" editable = "bottom">
@@ -122,6 +119,17 @@
                                 </group>
                             </group>
                         </page>
+                        <page string = "Gas Analysis">
+                            <group>
+                                <field name = "gas_o2"/>
+                                <field name = "gas_h2" />
+                                <field name = "gas_n2" />
+                            </group>
+                        </page>
+                        <page string = "Remarks" >
+                            <field name = "remarks" placeholder="Remarks" nolabel = "1"/>
+                        </page>
+
                     </notebook>
                 </sheet>
             </form>

@@ -180,4 +180,7 @@ class ChemicalComposition(models.Model):
     remarks = fields.Text("Remarks")
     lateral_bend = fields.Float("Lateral Bend")
     length = fields.Char("Length")
+    gas_o2 = fields.Char("O₂ (ppm)")
+    gas_n2 = fields.Char("N₂ (ppm)")
+    gas_h2 = fields.Char("H₂ (ppm)")
 
