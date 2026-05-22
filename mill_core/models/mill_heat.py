@@ -69,17 +69,14 @@ class Heat(models.Model):
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
-        heats = []
-        heats = self.search([('furnace_heat_no', 'ilike', name)])
-        res = super(Heat, self).name_search(name, args, operator, limit)
-        return list(set(res + (heats and heats.name_get() or [])))
+        args+=[('furnace_heat_no', operator, name)]
+        return  super(Heat, self).name_search(name, args, operator, limit)
 
-    def name_get(self):
-        result = []
+    # 1. This controls WHAT the user sees inside the dropdown list rows
+    @api.depends('name', 'furnace_heat_no')
+    def _compute_display_name(self):
         for record in self:
-            name = '[' + str(record.furnace_heat_no or "") + ']' + ' ' + record.name
-            result.append((record.id, name))
-        return result
+            record.display_name = '[' + str(record.furnace_heat_no or "") + ']' + ' ' + record.name
 
     @api.model_create_multi
     def create(self, vals):
@@ -138,6 +135,7 @@ class Heat(models.Model):
         }
 
     name = fields.Char('SSAI Heat No.', default='/', required=True)
+    display_name = fields.Char(compute='_compute_display_name',store=True)
     furnace_heat_no = fields.Char('Supplier Heat No.', required=True)
     grinding = fields.Boolean('Grinding')
     date = fields.Char('Date Rcvd', required=True, default=fields.Date.today)
