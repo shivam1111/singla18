@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Action Trigger Configuration -->
+    <record id="action_report_chemical_composition" model="ir.actions.report">
+        <field name="name">Mill Test Certificate</field>
+        <field name="model">chemical.composition</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">test_certificate.report_mtc_document</field>
+        <field name="report_file">test_certificate.report_mtc_document</field>
+        <field name="print_report_name">'MTC_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_chemical_composition"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Main Document QWeb Template Layout -->
+    <template id="report_mtc_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica', 'Arial', sans-serif; color: #333; font-size: 12px;">
+
+                        <!-- Top Title Branding Strip -->
+                        <div class="text-center" style="border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 20px;">
+                            <h4 style="font-weight: bold; margin-bottom: 2px; color: #333;">TEST CERTIFICATE</h4>
+                            <p class="text-muted" style="font-size: 11px;">Quality Assurance Department | Test Certificate According to EN10204, Type 3.1</p>
+                        </div>
+
+                        <!-- Customer Details Info Card -->
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong>Customer Name</strong><br/>
+                                <span t-field="o.partner_id.name"/><br/>
+                            </div>
+                        </div>
+
+                        <!-- Top Level Document Metadata Block Table -->
+                        <table class="table table-bordered table-sm" style="border: 1px solid #333; margin-bottom: 20px;">
+                            <tbody>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; width: 18%; border: 1px solid #333;"><strong>H.No. / Heat No.</strong></td>
+                                    <td style="width: 32%; border: 1px solid #333;"><span t-field="o.name"/></td>
+                                    <td style="background-color: #f5f5f5; width: 18%; border: 1px solid #333;"><strong>Invoice No.</strong></td>
+                                    <td style="width: 32%; border: 1px solid #333;"><span t-field="o.invoice_no"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Grade</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.grade_id.name"/></td>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Date</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.date" t-options='{"widget": "date"}'/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Supply Condition</strong></td>
+                                    <td style="border: 1px solid #333;"><span>Free From Dent</span></td>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Color Code</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.color_code"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Qty</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.qty"/></td>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Process Route</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.route_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Horizontal Chemical Matrix Structure -->
+                        <h6 style="color: #333; font-weight: bold; margin-top: 25px;">% Chemical Composition &amp; Tramp element (ASTM E415)</h6>
+                        <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; table-layout: fixed; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; color: #333; border-bottom: 2px solid #333;">
+                                    <th style="width: 14%; text-align: left; font-weight: bold; vertical-align: middle; border: 1px solid #333;">Metric</th>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <th style="font-weight: bold; vertical-align: middle; border: 1px solid #333;">%<span t-field="line.element_id.name"/></th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">Min Spec</td>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <td style="border: 1px solid #333;">
+                                            <t t-if="line.min_val"><span t-field="line.min_val"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">Max Spec</td>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <td style="border: 1px solid #333;">
+                                            <t t-if="line.max_val"><span t-field="line.max_val"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <tr style="font-weight: bold; background-color: #fcfcfc;">
+                                    <td style="background-color: #f5f5f5; text-align: left; border: 1px solid #333;">Actual</td>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <td style="border: 1px solid #333;"><span t-field="line.actual_val"/></td>
+                                    </t>
+                                </tr>
+                                <tr style="font-weight: bold; background-color: #fcfcfc;">
+                                    <td style="background-color: #f5f5f5; text-align: left; border: 1px solid #333;">Carbon Equivalence</td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.carbon_equivalence"/></td>
+                                    <td style="background-color: #f5f5f5; text-align: left; border: 1px solid #333;">Ni+Cr+Mo</td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.nicrmo"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Middle Row Grid Block: Inclusion Rating & Gas Analysis Side-by-Side -->
+                        <div class="row" style="margin-top: 25px;">
+                            <!-- Left Sub-Column: Inclusion Rating Table Layout -->
+                            <div class="col-6">
+                                <h6 style="color: #333; font-weight: bold;">Inclusion Rating (As per IS 4163 / ASTM E45)</h6>
+                                <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; table-layout: fixed; width: 100%;">
+                                    <thead>
+                                        <tr style="background-color: #f5f5f5; color: #333; font-weight: bold; border-bottom: 2px solid #333;">
+                                            <th style="width: 25%; text-align: left; border: 1px solid #333;">Inclusion Type</th>
+                                            <th style="border: 1px solid #333;">A</th>
+                                            <th style="border: 1px solid #333;">B</th>
+                                            <th style="border: 1px solid #333;">C</th>
+                                            <th style="border: 1px solid #333;">D</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-if="o.inclusion_rating_ids">
+                                            <tr>
+                                                <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">THIN</td>
+                                                <t t-foreach="o.inclusion_rating_ids" t-as="l">
+                                                    <td style="border: 1px solid #333;"><t t-esc="l.thin or '-'"/></td>
+                                                </t>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">THICK</td>
+                                                <t t-foreach="o.inclusion_rating_ids" t-as="l">
+                                                    <td style="border: 1px solid #333;"><t t-esc="l.thick or '-'"/></td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                        <t t-if="not o.inclusion_rating_ids">
+                                            <tr>
+                                                <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">THIN</td>
+                                                <td style="border: 1px solid #333;">-</td><td style="border: 1px solid #333;">-</td><td style="border: 1px solid #333;">-</td><td style="border: 1px solid #333;">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">THICK</td>
+                                                <td style="border: 1px solid #333;">-</td><td style="border: 1px solid #333;">-</td><td style="border: 1px solid #333;">-</td><td style="border: 1px solid #333;">-</td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Right Sub-Column: Gas Analysis Block -->
+                            <div class="col-6">
+                                <h6 style="color: #333; font-weight: bold;">Gas Analysis (in ppm)</h6>
+                                <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; table-layout: fixed; width: 100%;">
+                                    <thead>
+                                        <tr style="background-color: #f5f5f5; color: #333; font-weight: bold; border-bottom: 2px solid #333;">
+                                            <th style="width: 25%; text-align: left; border: 1px solid #333;">Gas Element</th>
+                                            <th style="border: 1px solid #333;">O2 (Oxygen)</th>
+                                            <th style="border: 1px solid #333;">H2 (Hydrogen)</th>
+                                            <th style="border: 1px solid #333;">N2 (Nitrogen)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; text-align: left; font-weight: bold; border: 1px solid #333;">Actual</td>
+                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.name"/></td>
+                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.name"/></td>
+                                            <td style="border: 1px solid #333; font-weight: bold;"><span t-field="o.name"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Lower Double Column Grid Layout Split: Mechanical Properties vs NDT Verifications -->
+                        <div class="row" style="margin-top: 25px;">
+                            <!-- Left Block: Mechanical Data Features -->
+                            <div class="col-6">
+                                <h6 style="color: #333; font-weight: bold; margin-bottom: 10px;">Mechanical &amp; Metallurgical Properties</h6>
+                                <table class="table table-bordered table-sm" style="border: 1px solid #333; font-size: 11px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; width: 55%; border: 1px solid #333;"><strong>Ultimate Tensile Strength (UTS)</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.ultimate_tensile_strength"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Yield Strength (YS)</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.yield_strength"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Elongation (%E)</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.elongation"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Reduction Ratio</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.reduction_ratio"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Grain Size</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.grain_size"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>LateralBend</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.lateral_bend"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Length</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.length"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Complete Decarb Depth</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.complete_decarb"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Partial Decarb Depth</strong></td>
+                                            <td style="border: 1px solid #333;"><span t-field="o.partial_decarb"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Right Block: Quality Control Check Checkboxes Matrix -->
+                            <div class="col-6">
+                                <h6 style="color: #333; font-weight: bold; margin-bottom: 10px;">NDT &amp; Quality Verification</h6>
+                                <table class="table table-bordered table-sm text-center" style="border: 1px solid #333; font-size: 11px;">
+                                    <thead>
+                                        <tr style="background-color: #f5f5f5; color: #333; border-bottom: 2px solid #333;">
+                                            <th class="text-left" style="width: 65%; border: 1px solid #333;">Test Parameters</th>
+                                            <th style="border: 1px solid #333;">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;">Spark Test</td>
+                                            <td style="border: 1px solid #333;">
+                                                <span t-if="o.spark_test" style="font-weight: bold; color: green;">YES</span>
+                                                <span t-if="not o.spark_test" style="color: #777;">NO</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;">XRF Test</td>
+                                            <td style="border: 1px solid #333;"><span style="font-weight: bold; color: green;">YES</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;">UT Test (Ultrasonic)</td>
+                                            <td style="border: 1px solid #333;">
+                                                <span t-if="o.is_ut" style="font-weight: bold; color: green;">YES</span>
+                                                <span t-if="not o.is_ut" style="color: #777;">NO</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;">MPI (Magnetic Particle Inspection)</td>
+                                            <td style="border: 1px solid #333;">
+                                                <span t-if="o.is_mpi" style="font-weight: bold; color: green;">YES</span>
+                                                <span t-if="not o.is_mpi" style="color: #777;">NO</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left" style="font-weight: bold; background-color: #fcfcfc; border: 1px solid #333;">Internal Soundness</td>
+                                            <td style="font-weight: bold; color: green; background-color: #fcfcfc; border: 1px solid #333;">OK</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;">Hardness Min. (BHN)</td>
+                                            <td style="font-weight: bold; color: green; border: 1px solid #333;"><span t-field="o.min_hardness" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left" style="border: 1px solid #333;">Hardness Max. (BHN)</td>
+                                            <td style="font-weight: bold; color: green; border: 1px solid #333;"><span t-field="o.max_hardness" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Sign-off Block Strip Row -->
+                        <div class="row" style="margin-top: 35px;">
+                            <div class="col-6 text-right offset-6" style="margin-top: 20px;">
+                                <p><strong>For Singla Steel &amp; Allied Industries</strong></p>
+                                <br/><br/>
+                                <p style="border-top: 1px dashed #ccc; display: inline-block; width: 220px; padding-top: 5px;">Authorised Signatory</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

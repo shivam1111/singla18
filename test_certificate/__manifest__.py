@@ -19,6 +19,7 @@
         # Views
         'views/chemical_composition.xml',
         # Reports
+        "report/test_certificate_report.xml",
     ],
     'demo': [
     ],
