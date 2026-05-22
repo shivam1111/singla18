@@ -1,6 +1,11 @@
 from odoo import models, fields, api
 from odoo.tools.translate import _
 
+class ProcessRoute(models.Model):
+    _name = "process.route"
+    _description = "Process Route"
+
+    name = fields.Char('Route')
 
 class IngotSize(models.Model):
     _name = "ingot.size"
@@ -134,13 +139,22 @@ class Heat(models.Model):
             'message': "\n".join(result_lines)
         }
 
+    def _get_default_route(self):
+        try:
+            return self.env.ref('mill_core.data_process_route_1').id
+        except ValueError:
+            return False
+
     name = fields.Char('SSAI Heat No.', default='/', required=True)
     display_name = fields.Char(compute='_compute_display_name',store=True)
+    route_id = fields.Many2one('process.route',"Process Route",
+                               required=True,default=lambda self:self._get_default_route(self))
     furnace_heat_no = fields.Char('Supplier Heat No.', required=True)
     grinding = fields.Boolean('Grinding')
     date = fields.Char('Date Rcvd', required=True, default=fields.Date.today)
     partner_id = fields.Many2one('res.partner',string=" Supplier",required=True)
     grade_spec_id = fields.Many2one('material.grade.spec',string="Grade",)
+    print_supplier = fields.Boolean('Print Supplier',help="Print Supplier in Report")
     line_ids = fields.One2many(
         "mill.heat.chem",
         "heat_id",

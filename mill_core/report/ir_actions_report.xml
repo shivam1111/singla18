@@ -37,4 +37,16 @@
         <field name="binding_type">report</field>
         <field name="attachment_use" eval="False"/>
     </record>
+
+   <record id="action_heat_report" model="ir.actions.report">
+       <field name="name">Heat Report</field>
+       <field name="model">heat.heat</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">mill_core.template_heat_report</field>
+       <field name="report_file">mill_core.heat_report</field>
+       <field name="print_report_name">''+object.name </field>
+       <field name="binding_model_id" ref="model_heat_heat"/>
+       <field name="binding_type">report</field>
+   </record>
+
 </odoo>

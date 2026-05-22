@@ -5,7 +5,7 @@
        		<field name="name">mill.production.tree</field>
        		<field name="model">mill.production</field>
        		<field name="arch" type="xml">
-       			<list decoration-info="state == 'draft'" decoration-success="state == 'done'"  string = "Production Register">
+       			<list decoration-danger="state == 'draft'" decoration-info="state == 'done'"  string = "Production Register">
        				<field name = "name" />
        				<field name = "date" />
        				<field name = "hours"  sum = "Total Hours"/>

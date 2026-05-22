@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_heat_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+						<div class="oe_structure"/>
+			            <div class = "row" style = "padding: 10px;">
+			            		<div class = "text-center"><h1>Heat Report</h1></div>
+			            </div>
+			            <div class="row mt-4 mb-2" id="informations">
+							<div class = "col-auto col-3 mw-100 mb-2">
+			                    <strong>Date Rcvd</strong>
+			                    <p t-field="doc.date" t-options ='{"format": "%d/%m/%Y"}'/>
+							</div>
+							<div class = "col-auto col-3 mw-100 mb-2">
+		                    	<strong>SSAI Heat No.</strong>
+		                    	<p t-field="doc.name"/>
+							</div>
+							<div class = "col-auto col-3 mw-100 mb-2">
+		                    	<strong>Grade</strong>
+		                    	<p t-field="doc.grade_spec_id.display_name"/>
+							</div>
+							<div class = "col-auto col-3 mw-100 mb-2">
+								<strong>Supplier Heat No.</strong>
+								<p t-field="doc.furnace_heat_no" />
+							</div>
+			            </div>
+
+						<div class="row mt-4 mb-2" id="informations">
+							<div class = "col-auto col-3 mw-100 mb-2">
+								<strong>Size</strong>
+								<p t-esc="doc.size.name or '-'"/>
+							</div>
+							<t t-if = "doc.print_supplier">
+								<div class = "col-auto col-3 mw-100 mb-2" >
+									<strong>Supplier</strong>
+									<p t-esc="doc.partner_id and doc.partner_id.name or '-' "/>
+								</div>
+							</t>
+							<div class = "col-auto col-3 mw-100 mb-2">
+								<strong>Process Route</strong>
+								<p t-esc="doc.route_id.name or '-'"/>
+							</div>
+						</div>
+
+						<table class = "table table-sm o_main_table table-borderless">
+		            		<thead class="thead-dark">
+		            			<th>ELEMENTS</th>
+		            			<t t-foreach="doc.line_ids" t-as="l">
+		            				<th>
+		            					%<t t-esc="l.element_id.code"/>
+		            				</th>
+		            			</t>
+		            		</thead>
+		            		<tbody>
+		            			<tr>
+		            				<td>MIN</td>
+			            			<t t-foreach="doc.line_ids" t-as="l">
+			            				<td style = "text-transform:uppercase;">
+			            					<t t-esc="l.min_val or '-'"/>
+			            				</td>
+			            			</t>
+		            			</tr>
+		            			<tr>
+		            				<td>MAX</td>
+			            			<t t-foreach="doc.line_ids" t-as="l">
+			            				<td style = "text-transform:uppercase;">
+			            					<t t-esc="l.max_val or '-'"/>
+			            				</td>
+			            			</t>
+		            			</tr>
+		            			<tr>
+		            				<td>FURNACE</td>
+			            			<t t-foreach="doc.line_ids" t-as="l">
+			            				<td style = "text-transform:uppercase;">
+			            					<t t-esc="l.furnace_val"/>
+			            				</td>
+			            			</t>
+		            			</tr>
+		            			<tr>
+		            				<td>ACTUAL</td>
+			            			<t t-foreach="doc.line_ids" t-as="l">
+			            				<td style = "text-transform:uppercase;">
+			            					<t t-esc="l.actual_val"/>
+			            				</td>
+			            			</t>
+		            			</tr>
+		            		</tbody>
+						</table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

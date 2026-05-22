@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id = "data_process_route_1" model = "process.route">
+            <field name = "name">IF -> LADDLE -> INGOT -> HOT ROLLED</field>
+        </record>
+        <record id = "data_process_route_2" model = "process.route">
+            <field name = "name">BILLET -> HOT ROLLED</field>
+        </record>
+        <record id = "data_process_route_3" model = "process.route">
+            <field name = "name">BOF-LF/IRUT-CCM-BILLET -> HOT ROLLED</field>
+        </record>
+        <record id = "data_process_route_4" model = "process.route">
+            <field name = "name">IF ->HOT TOP/LADDLE -> INGOT -> HOT ROLLED </field>
+        </record>
+        <record id = "data_process_route_5" model = "process.route">
+            <field name = "name">IF ->LRF ->VD -> BILLET -> HOT ROLLED </field>
+        </record>
+    </data>
+</odoo>

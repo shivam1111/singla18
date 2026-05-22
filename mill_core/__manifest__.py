@@ -13,8 +13,12 @@
         'sale','purchase','stock','report_xlsx',
     ],
     'data': [
+        # Data
         "data/ir_sequence_data.xml",
+        "data/data.xml",
+        # Security
         "security/ir.model.access.csv",
+        # Views
         "views/menuitem.xml",
         "views/size_size_view.xml",
         "views/material_grade_views.xml",
@@ -24,8 +28,10 @@
         "views/stock_picking_view.xml",
         "views/mill_production_view.xml",
         "views/production_order_view.xml",
+        # Reports
         "report/ir_actions_report.xml",
         "report/production_order_report.xml",
+        "report/heat_report.xml",
     ],
     'demo': [
     ],

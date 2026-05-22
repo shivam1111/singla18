@@ -56,6 +56,8 @@
 	                    		<field name = "furnace_heat_no" />
 	                    		<field name = "supervisor_id" />
                                 <field name = "move_id" />
+                                <field name = "route_id" />
+                                <field name = "print_supplier" />
 	                    	</group>
 	                    	<group>
 	                    		<field name = "date" />
@@ -130,4 +132,31 @@
            sequence= "4"
            action = "action_mill_heat_views"
        />
+
+    <!-- process.route -->
+    <record id="view_process_route_tree" model="ir.ui.view">
+        <field name="name">process.route.tree</field>
+        <field name="model">process.route</field>
+        <field name="arch" type="xml">
+            <list string = "Process Route" editable="bottom">
+                <field name = "name" />
+            </list>
+        </field>
+    </record>
+
+    <record id="action_process_route_views" model="ir.actions.act_window">
+        <field name="name">Process Route</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">process.route</field>
+        <field name="view_mode">list</field>
+        <field name = "context"></field>
+    </record>
+
+   <menuitem
+           id= "mill_process_route_submenu_v2"
+           parent= "mill_core.menu_mill_heats"
+           sequence= "4"
+           action = "action_process_route_views"
+       />
+
 </odoo>
