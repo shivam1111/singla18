@@ -148,7 +148,7 @@ class Heat(models.Model):
     name = fields.Char('SSAI Heat No.', default='/', required=True)
     display_name = fields.Char(compute='_compute_display_name',store=True)
     route_id = fields.Many2one('process.route',"Process Route",
-                               required=True,default=lambda self:self._get_default_route(self))
+                               required=True,default=lambda self:self._get_default_route())
     furnace_heat_no = fields.Char('Supplier Heat No.', required=True)
     grinding = fields.Boolean('Grinding')
     date = fields.Char('Date Rcvd', required=True, default=fields.Date.today)
