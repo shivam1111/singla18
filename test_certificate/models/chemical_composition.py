@@ -36,67 +36,6 @@ class ChemicalComposition(models.Model):
     _name = "chemical.composition"
     _description = "Chemical Compositions"
 
-    def action_print_heat_report_docx(self):
-        self.ensure_one()
-        # 1. Locate the .docx template file safely inside your custom module
-        module_path = modules.get_module_path('test_certificate')
-        template_file_path = os.path.join(module_path, 'data', 'templates', 'heat_report_template.docx')
-        if not os.path.exists(template_file_path):
-            raise UserError(f"Template file not found at: {template_file_path}")
-        # 2. Load the template file into docxtpl
-        doc = DocxTemplate(template_file_path)
-        context_data = {
-            'record':self
-        }
-        doc.render(context_data)
-
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_docx_path = os.path.join(temp_dir, 'temp_report.docx')
-            doc.save(temp_docx_path)
-            try:
-                # 4. Trigger Headless LibreOffice conversion CLI command
-                # Linux/macOS binary name is usually 'libreoffice' or 'soffice'
-                # For Windows, change 'libreoffice' to 'soffice.exe' or specify full path
-                subprocess.run([
-                    'soffice',
-                    '--headless',
-                    '--convert-to', 'pdf',
-                    '--outdir', temp_dir,
-                    temp_docx_path
-                ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-            except (subprocess.CalledProcessError, FileNotFoundError):
-                raise UserError(
-                    "LibreOffice is missing or failed to convert the file. "
-                    "Ensure 'libreoffice' is installed on the server and added to the PATH system variables."
-                )
-
-            # LibreOffice automatically saves the output file with the same base name (.pdf)
-            temp_pdf_path = os.path.join(temp_dir, 'temp_report.pdf')
-
-            if not os.path.exists(temp_pdf_path):
-                raise UserError("PDF conversion failed. Output file could not be generated.")
-
-            # 5. Read the generated binary PDF back into memory
-            with open(temp_pdf_path, 'rb') as pdf_file:
-                file_data = base64.b64encode(pdf_file.read())
-
-        # 6. Stream file directly out to Odoo as binary attachment
-        attachment = self.env['ir.attachment'].create({
-            'name': f"Heat_Report_{self.name}.pdf",
-            'type': 'binary',
-            'datas': file_data,
-            'store_fname': f"Heat_Report_{self.name}.pdf",
-            'mimetype': 'application/pdf'  # Updated to PDF Mimetype
-        })
-
-        return {
-            'type': 'ir.actions.act_url',
-            'url': f'/web/content/{attachment.id}?download=true',
-            'target': 'self',
-        }
-
-
     def update_composition_lines(self):
         for c in self:
             c.line_ids.unlink() # Once executed change is grade_id is resetted. Hence we are saving the grade in previous line
