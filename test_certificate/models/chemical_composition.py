@@ -40,7 +40,7 @@ class ChemicalComposition(models.Model):
         for c in self:
             c.line_ids.unlink() # Once executed change is grade_id is resetted. Hence we are saving the grade in previous line
             lines = [(5, 0, 0)]
-            for i in self.grade_id.chemistry_ids:
+            for i in c.grade_id.chemistry_ids:
                 line_values = {'element_id':i.element_id.id,'min_val':i.min_value,'max_val':i.max_value}
                 lines.append((0, 0, line_values))
             c.line_ids = lines
