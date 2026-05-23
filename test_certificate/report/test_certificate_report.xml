@@ -62,7 +62,7 @@
                         <table class="table table-bordered table-sm" style="border: 1px solid #333; margin-bottom: 20px;">
                             <tbody>
                                 <tr>
-                                    <td style="background-color: #f5f5f5; width: 18%; border: 1px solid #333;"><strong>H.No. / Heat No.</strong></td>
+                                    <td style="background-color: #f5f5f5; width: 18%; border: 1px solid #333;"><strong>TC No.</strong></td>
                                     <td style="width: 32%; border: 1px solid #333;"><span t-field="o.name"/></td>
                                     <td style="background-color: #f5f5f5; width: 18%; border: 1px solid #333;"><strong>Invoice No.</strong></td>
                                     <td style="width: 32%; border: 1px solid #333;"><span t-field="o.invoice_no"/></td>
@@ -74,8 +74,8 @@
                                     <td style="border: 1px solid #333;"><span t-field="o.date" t-options='{"widget": "date"}'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Supply Condition</strong></td>
-                                    <td style="border: 1px solid #333;"><span>Free From Dent</span></td>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Heat No.</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.heat_id.name"/></td>
                                     <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Color Code</strong></td>
                                     <td style="border: 1px solid #333;"><span t-field="o.color_code"/></td>
                                 </tr>
@@ -84,6 +84,12 @@
                                     <td style="border: 1px solid #333;"><span t-field="o.qty"/></td>
                                     <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Process Route</strong></td>
                                     <td style="border: 1px solid #333;"><span t-field="o.route_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Size</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.size"/></td>
+                                    <td style="background-color: #f5f5f5; border: 1px solid #333;"><strong>Vehicle No.</strong></td>
+                                    <td style="border: 1px solid #333;"><span t-field="o.truck_no"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -290,15 +296,15 @@
                                         </tr>
                                         <tr>
                                             <td class="text-left" style="border: 1px solid #333;">Hardness Min. (BHN)</td>
-                                            <td style="font-weight: ; color: green; border: 1px solid #333;"><span t-field="o.min_hardness" /></td>
+                                            <td style="font-weight:bold ; color: green; border: 1px solid #333;"><span t-field="o.min_hardness" /></td>
                                         </tr>
                                         <tr>
                                             <td class="text-left" style="border: 1px solid #333;">Hardness Max. (BHN)</td>
                                             <td style="font-weight: bold; color: green; border: 1px solid #333;"><span t-field="o.max_hardness" /></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-left" style="border: 1px solid #333;"><span>-</span></td>
-                                            <td style="font-weight: bold; color: green; border: 1px solid #333;"><span>-</span></td>
+                                            <td class="text-left" style="border: 1px solid #333;"><span>Supply Condition</span></td>
+                                            <td style="font-weight: bold; color: green; border: 1px solid #333;"><span>Free From Dent</span></td>
                                         </tr>
                                     </tbody>
                                 </table>

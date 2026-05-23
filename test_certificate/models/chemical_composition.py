@@ -123,3 +123,4 @@ class ChemicalComposition(models.Model):
     gas_n2 = fields.Char("N₂ (ppm)")
     gas_h2 = fields.Char("H₂ (ppm)")
 
+

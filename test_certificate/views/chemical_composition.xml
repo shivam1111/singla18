@@ -6,14 +6,14 @@
         <field name="model">chemical.composition</field>
         <field name="arch" type="xml">
             <list string = "Test Certificates" >
-                    <field name = "name" />
-                    <field name= "partner_id"/>
-                    <field name = "date" />
-                    <field name = "grade_id"/>
-                    <field name = "heat_no"/>
-                    <field name = "invoice_no" />
-                    <field name = "size" />
-                </list>
+                <field name = "name" />
+                <field name= "partner_id"/>
+                <field name = "date" />
+                <field name = "grade_id"/>
+                <field name = "heat_no"/>
+                <field name = "invoice_no" />
+                <field name = "size" />
+            </list>
         </field>
     </record>
 
