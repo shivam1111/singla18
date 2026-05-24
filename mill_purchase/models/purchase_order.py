@@ -87,6 +87,13 @@ class StockPicking(models.Model):
         readonly=True
     )
 
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    product_id = fields.Many2one('product.product', string = "Product",
+                                 related="move_ids_without_package.product_id")
+
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 

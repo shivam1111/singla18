@@ -83,6 +83,7 @@
         <field name="arch" type="xml">
             <!-- Injects columns directly before the system status column -->
             <xpath expr="//field[@name='state']" position="before">
+                <field name = "product_id"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="po_net_rate" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
             </xpath>
