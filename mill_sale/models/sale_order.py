@@ -10,6 +10,29 @@ class SaleOrder(models.Model):
         string='Dispatch Details Log'
     )
     x_line_price_unit = fields.Float("Rate",related = "order_line.price_unit")
+    x_total_qty = fields.Float(
+        string="Qty",
+        compute="_compute_total_qty",
+        store=True
+    )
+    x_dispatch_qty = fields.Float(
+        string="Completed",
+        compute="_compute_total_qty",
+        store=True
+    )
+    x_balance_qty = fields.Float(
+        string="Balance",
+        compute="_compute_total_qty",
+        store=True
+    )
+    @api.depends('order_line.product_uom_qty','order_line.qty_delivered_mill','order_line.qty_pending_mill')
+    def _compute_total_qty(self):
+        for order in self:
+            # Sum up the quantities of all lines
+            total_qty = sum(order.order_line.mapped('product_uom_qty'))
+            order.x_total_qty = total_qty
+            order.x_dispatch_qty = sum(order.order_line.mapped('qty_delivered_mill'))
+            order.x_balance_qty = sum(order.order_line.mapped('qty_pending_mill'))
 
 
 class SaleOrderDispatchLine(models.Model):
@@ -35,8 +58,8 @@ class SaleOrderDispatchLine(models.Model):
         domain="[('order_id', '=', order_id),('product_id','!=',False)]",
         required=True)
 
-    size_id = fields.Many2one('size.size', string='Size Delivered', required=True)
-    qty_dispatched = fields.Float(string='Weight Dispatched (MT)', required=True)
+    size_id = fields.Many2one('size.size', string='Size', required=True)
+    qty_dispatched = fields.Float(string='Dispatched', required=True)
     invoice_no = fields.Char("Invoice No.")
     remarks = fields.Char("Remarks")
 
