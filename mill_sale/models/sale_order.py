@@ -46,6 +46,44 @@ class SaleOrderLine(models.Model):
     qty_delivered_mill = fields.Float(string='Delivered (MT)', compute='_compute_manual_dispatches', store=True)
     qty_pending_mill = fields.Float(string='Pending (MT)', compute='_compute_manual_dispatches', store=True)
 
+    # The 3 Pricing Components
+    basic_mandi_rate = fields.Monetary(
+        string='Basic Rate',
+        help="Base raw material price from the Mandi."
+    )
+    extra_misc_charges = fields.Monetary(
+        string='Extra Charges',
+        help="Grade-specific premiums or specialized testing fees."
+    )
+    rolling_conversion_rate = fields.Monetary(
+        string='Rolling',
+        help="Internal cost/rate to convert raw ingot into finished profiles."
+    )
+
+    # Final Computed Metric
+    net_rate = fields.Monetary(
+        string='Net Rate',
+        compute='_compute_rolling_mill_pricing',
+        store=True,
+        help="Final calculated price per MT (Mandi + Extra + Conversion)."
+    )
+
+    # Dynamic Pricing Engine
+    @api.depends('basic_mandi_rate', 'extra_misc_charges', 'rolling_conversion_rate')
+    def _compute_rolling_mill_pricing(self):
+        for line in self:
+            # Sum up all three pricing pillars
+            computed_net = (
+                    line.basic_mandi_rate +
+                    line.extra_misc_charges +
+                    line.rolling_conversion_rate
+            )
+            line.net_rate = computed_net
+
+            # Map directly to Odoo's native unit price variable
+            # to drive standard accounting subtotal metrics
+            line.price_unit = computed_net
+
     # 1. TRICK: Change how the Sale Order Line looks in dropdown menus
     @api.depends('product_id', 'size_id')
     def _compute_display_name(self):

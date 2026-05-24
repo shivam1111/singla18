@@ -15,6 +15,9 @@
                 <field name="extra_rate"/>
                 <field name="net_rate" readonly="1"/>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="broker_id" options="{'no_create': True}"/>
+            </xpath>
         </field>
     </record>
 
@@ -32,6 +35,22 @@
         </field>
     </record>
 
+    <record id="purchase_order_history_tree_rolling_mill" model="ir.ui.view">
+        <field name="name">purchase.order.history.tree.rolling.mill</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_history_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_unit']" position="before">
+                <field name="basic_rate"/>
+                <field name="extra_rate"/>
+            <!-- Adds visible columns to the main list overview dashboard -->
+            </xpath>
+            <xpath expr = "//field[@name='price_subtotal']" position="attributes">
+                <attribute name = "column_invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
     <record id="vpicktree_rolling_mill" model="ir.ui.view">
         <field name="name">stock.picking.tree.rolling.mill</field>
         <field name="model">stock.picking</field>
@@ -41,6 +60,17 @@
             <xpath expr="//field[@name='state']" position="before">
                 <field name="currency_id" invisible="1"/>
                 <field name="po_net_rate" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_inherit_broker" model="ir.ui.view">
+        <field name = "name">stock.move.line.tree.inherit.broker</field>
+        <field name = "model">stock.move.line</field>
+        <field name = "inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reference']" position="after">
+                <field name="broker_id" string="Broker" optional="show"/>
             </xpath>
         </field>
     </record>

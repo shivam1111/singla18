@@ -1,5 +1,15 @@
 from odoo import models, fields, api
 
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
+
+    # Field to select the Broker on the contract
+    broker_id = fields.Many2one(
+        'res.partner',
+        string='Broker',
+        help="Broker responsible for coordinating this raw material supply run."
+    )
+
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
@@ -35,5 +45,26 @@ class StockPicking(models.Model):
     currency_id = fields.Many2one(
         related='purchase_id.currency_id',
         string='Currency',
+        readonly=True
+    )
+
+    # Automatically pull the Broker name onto the incoming warehouse gate receipts
+    broker_id = fields.Many2one(
+        'res.partner',
+        related='purchase_id.broker_id',
+        string='Broker',
+        store=True,
+        readonly=True
+    )
+
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
+
+    # Create a native, searchable related field pointing to the broker
+    broker_id = fields.Many2one(
+        'res.partner',
+        related='picking_id.broker_id',
+        string='Broker',
+        store=True,     # Storing it ensures fast grouping and clean pivot reports
         readonly=True
     )

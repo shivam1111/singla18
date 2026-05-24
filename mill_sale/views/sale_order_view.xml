@@ -19,6 +19,22 @@
                 <field name="qty_pending_mill" string="Pending (MT)" decoration-danger="qty_pending_mill &gt; 0"/>
             </xpath>
 
+            <xpath expr="//field[@name='order_line']/list/field[@name='qty_delivered']" position="attributes">
+                <attribute name = "column_invisible">1</attribute>
+            </xpath>
+
+            <!-- Inject your three-part pricing matrix columns right where price_unit used to be -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="before">
+                <field name="basic_mandi_rate" invisible="not size_id" />
+                <field name="extra_misc_charges" invisible="not size_id" />
+                <field name="rolling_conversion_rate" invisible="not size_id" />
+                <field name="net_rate" readonly="1" force_save="1" invisible="not size_id" />
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='qty_invoiced']" position="attributes">
+                <attribute name = "column_invisible">1</attribute>
+            </xpath>
+
             <!-- 2. Append a clean tracking tab for your gate dispatches -->
             <xpath expr="//field[@name='order_line']" position="after">
                     <notebook>
