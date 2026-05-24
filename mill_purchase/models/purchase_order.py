@@ -9,6 +9,12 @@ class PurchaseOrder(models.Model):
         string='Broker',
         help="Broker responsible for coordinating this raw material supply run."
     )
+    x_line_rate = fields.Float(
+        string="Rate",
+        related="order_line.price_unit",
+        readonly=True,
+        store=True
+    )
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
