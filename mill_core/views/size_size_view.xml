@@ -33,7 +33,7 @@
                 <group expand="0" string="Group By">
                     <filter string="Shape"
                             name="group_shape"
-                            context="{'group_by': 'corner_id'}"/>
+                            context="{'group_by': 'shape'}"/>
                     <filter string="Size"
                             name="group_size"
                             context="{'group_by': 'name'}"/>

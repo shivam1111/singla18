@@ -1,5 +1,4 @@
 import xmlrpc.client
-import pandas as pd
 import ssl
 
 data_url = "https://erp.singlasteel.in" # odoo instance url
