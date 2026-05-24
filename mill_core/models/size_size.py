@@ -8,10 +8,6 @@ class CornerType(models.Model):
     _description = "Corner Type for Flat Bars"
 
     name = fields.Char("Name")
-    shape = fields.Selection([
-        ('flat', 'Flat'),
-        ('round', 'Round'),
-        ], required=True)
 
 class Size(models.Model):
     _name = 'size.size'

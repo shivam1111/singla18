@@ -29,15 +29,6 @@
                 <field name="name" string="Size"
                 filter_domain="[('name', 'ilike', self)]"/>
                 <field name="corner_id"/>
-
-                <!-- Quick filters -->
-                <filter string="Flat"
-                        name="filter_flat"
-                        domain="[('corner_id.shape', '=', 'flat')]"/>
-                <filter string="Round"
-                        name="filter_round"
-                        domain="[('corner_id.shape', '=', 'round')]"/>
-
                 <!-- Group by -->
                 <group expand="0" string="Group By">
                     <filter string="Shape"
@@ -69,7 +60,7 @@
         <field name="model">corner.type</field>
         <field name="arch" type="xml">
             <list editable="bottom" delete="true"  >
-                <field name="name" width="20%" />
+                <field name="name"  />
             </list>
         </field>
     </record>
