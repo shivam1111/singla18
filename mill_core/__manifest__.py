@@ -32,6 +32,7 @@
         "report/ir_actions_report.xml",
         "report/production_order_report.xml",
         "report/heat_report.xml",
+        "report/grade_report.xml",
     ],
     'demo': [
     ],
