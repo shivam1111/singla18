@@ -28,7 +28,7 @@
                 <field name="basic_mandi_rate" invisible="not size_id" />
                 <field name="extra_misc_charges" invisible="not size_id" />
                 <field name="rolling_conversion_rate" invisible="not size_id" />
-                <field name="net_rate" readonly="1" force_save="1" invisible="not size_id" />
+                <field name="net_rate" readonly="1" force_save="1" invisible="not size_id" optional="hide" />
             </xpath>
 
             <xpath expr="//field[@name='order_line']/list/field[@name='qty_invoiced']" position="attributes">
