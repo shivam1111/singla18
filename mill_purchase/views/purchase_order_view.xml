@@ -37,6 +37,7 @@
                 <field name="order_line" widget="many2many_tags" string="Products/Grades" optional="show"/>
                 <field name="x_line_product_qty" />
                 <field name="x_line_qty_received" />
+                <field name="x_qty_balance" />
             </xpath>
             <xpath expr="//field[@name='amount_total']" position="attributes">
                 <attribute name="column_invisible">1</attribute>

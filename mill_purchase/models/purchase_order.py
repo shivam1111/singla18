@@ -28,6 +28,17 @@ class PurchaseOrder(models.Model):
         store=True
     )
 
+    x_qty_balance = fields.Float(
+        string="Balance",
+        compute="_compute_qty_balance",
+        store=True
+    )
+
+    @api.depends('x_line_product_qty', 'x_line_qty_received')
+    def _compute_qty_balance(self):
+        for line in self:
+            # Simple math: Ordered minus what has arrived
+            line.x_qty_balance = line.x_line_product_qty - line.x_line_qty_received
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
