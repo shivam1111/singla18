@@ -78,8 +78,8 @@
                 <attribute name="column_invisible">1</attribute>
             </xpath>
             <xpath expr ="//field[@name='company_id']" position="after">
+                <field name = "x_line_price_unit" />
                 <field name = "x_total_qty" />
-                <field name = "x_dispatch_qty" />
                 <field name = "x_dispatch_qty" />
                 <field name = "x_balance_qty" />
             </xpath>
