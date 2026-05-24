@@ -15,6 +15,19 @@ class PurchaseOrder(models.Model):
         readonly=True,
         store=True
     )
+    x_line_product_qty = fields.Float(
+        string="Qty",
+        related="order_line.product_qty",
+        readonly=True,
+        store=True
+    )
+    x_line_qty_received = fields.Float(
+        string="Received",
+        related="order_line.qty_received",
+        readonly=True,
+        store=True
+    )
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
