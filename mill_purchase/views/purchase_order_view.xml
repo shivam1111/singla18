@@ -42,6 +42,12 @@
             <xpath expr="//field[@name='date_planned']" position="attributes">
                 <attribute name="column_invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="column_invisible">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_approve']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
             <xpath expr="//field[@name='origin']" position="attributes">
                 <attribute name="column_invisible">1</attribute>
             </xpath>
