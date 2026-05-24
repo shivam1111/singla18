@@ -5,7 +5,7 @@
     			<t t-call="web.external_layout">
     				<div class = "page">
 					<div class="oe_structure"/>
-						<div style = "text-align:center;"><h2><t t-esc="doc.display_name"/></h2></div>
+						<div style = "text-align:center;"><h2><t t-esc="doc.print_name"/></h2></div>
 						<table class = "table table-sm o_main_table table-borderless mt-4 caption-top">
 			            		<caption>CHEMICAL COMPOSITION</caption>
 			            		 <thead style="display: table-row-group">

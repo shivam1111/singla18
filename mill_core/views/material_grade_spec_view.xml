@@ -23,6 +23,7 @@
                     <group>
                         <field name="grade_id"/>
                         <field name="name"/>
+                        <field name = "print_name" />
                         <field name="description"/>
                         <field name="active"/>
                     </group>

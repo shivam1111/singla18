@@ -86,6 +86,7 @@ class MaterialGradeSpec(models.Model):
         "spec_id",
         string="Chemistry Limits"
     )
+    print_name = fields.Char('Print Name')
 
 
     @api.depends("grade_id.name", "name")
