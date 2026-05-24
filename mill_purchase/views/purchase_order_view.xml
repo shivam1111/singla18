@@ -32,6 +32,12 @@
                 <!-- Pulling calculations through to line aggregate indicators if single-grade PO pattern is kept -->
                 <field name="invoice_status" optional="show"/>
             </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="broker_id" optional="show"/>
+            </xpath>
         </field>
     </record>
 
