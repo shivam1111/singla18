@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_rolling_mill_pure_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.rolling.mill.pure.sale.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- 1. Display custom columns on your main items grid layout -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_id']" position="before">
+                <field name="size_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='qty_delivered']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='qty_invoiced']" position="before">
+                <field name="qty_delivered_mill" string="Delivered (MT)"/>
+                <field name="qty_pending_mill" string="Pending (MT)" decoration-danger="qty_pending_mill &gt; 0"/>
+            </xpath>
+
+            <!-- 2. Append a clean tracking tab for your gate dispatches -->
+            <xpath expr="//field[@name='order_line']" position="after">
+                    <notebook>
+                        <page string = "Dispatch">
+                            <field name="dispatch_ledger_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="sale_line_id" widget="selection"/>
+                                    <field name="size_id"/>
+                                    <field name="qty_dispatched" sum="Total Dispatched"/>
+                                    <field name = "invoice_no" />
+                                    <field name = "remarks" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>
