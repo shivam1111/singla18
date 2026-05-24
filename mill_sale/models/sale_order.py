@@ -9,6 +9,7 @@ class SaleOrder(models.Model):
         'order_id',
         string='Dispatch Details Log'
     )
+    x_line_price_unit = fields.Float("Rate",related = "order_line.price_unit")
 
 
 class SaleOrderDispatchLine(models.Model):

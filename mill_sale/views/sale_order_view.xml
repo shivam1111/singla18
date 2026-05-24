@@ -34,7 +34,6 @@
             <xpath expr="//field[@name='order_line']/list/field[@name='qty_invoiced']" position="attributes">
                 <attribute name = "column_invisible">1</attribute>
             </xpath>
-
             <!-- 2. Append a clean tracking tab for your gate dispatches -->
             <xpath expr="//field[@name='order_line']" position="after">
                     <notebook>
@@ -54,4 +53,34 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_order_tree_rolling_mill_pure_sale" model="ir.ui.view">
+        <field name="name">sale.order.tree.rolling.mill.pure.sale.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr ="//field[@name='date_order']" position="attributes">
+                <attribute name="column_invisible"></attribute>
+            </xpath>
+            <xpath expr ="//field[@name='user_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr ="//field[@name='amount_untaxed']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr ="//field[@name='amount_tax']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr ="//field[@name='amount_total']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr ="//field[@name='invoice_status']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr ="//field[@name='company_id']" position="after">
+                <field name = "x_line_price_unit" />
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
