@@ -13,6 +13,8 @@ class StockMove(models.Model):
             'view_mode': 'list,form',
             'domain': [('move_id', '=', self.id)],
             'target': 'current',
-            'context':{'default_move_id':self.id,'default_grade_spec_id':self.product_id.grade_id.id}
+            'context':{'default_move_id':self.id,
+                       'default_partner_id':self.picking_id and self.picking_id.partner_id.id or False,
+                       'default_grade_spec_id':self.product_id.grade_id.id}
         }
     heat_ids =  fields.One2many('heat.heat','move_id',"Heats")
