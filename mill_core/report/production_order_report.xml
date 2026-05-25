@@ -42,7 +42,7 @@
 												<td><t t-esc="l.pcs" /></td>
 												<td><t t-esc="l.kg_per_pc" /></td>
 												<td><t t-esc="l.qty" /></td>
-												<td><t t-esc="l.grade_id.name" /></td>
+												<td><t t-esc="l.grade_id.print_name" /></td>
 												<td><t t-esc="l.partner_id.name" /></td>
 												<td><t t-esc="l.cc" /></td>
 												<td><t t-esc="l.heat_no" /></td>
