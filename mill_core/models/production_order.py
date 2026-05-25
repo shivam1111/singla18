@@ -9,9 +9,9 @@ class ProductionOrderLine(models.Model):
 
     @api.depends('size_id', 'kg_per_pc')
     def _compute_flat_length(self):
-        self.flat_length = 0
-        if self.size_id and self.size_id.section_weight_kg_m:
-            self.flat_length = self.kg_per_pc / self.size_id.section_weight_kg_m
+        for i in self:
+            if i.size_id and i.size_id.section_weight_kg_m:
+                i.flat_length = i.kg_per_pc / i.size_id.section_weight_kg_m
 
     @api.model_create_multi
     def create(self, vals):
