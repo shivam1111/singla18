@@ -5,9 +5,6 @@
 			<t t-call="web.basic_layout">
 				<t t-foreach="docs" t-as="doc">
                     <div class="page">
-					<div class="header o_standard_header o_company_1_layout">
-						<div class="row"></div>
-					</div>
 						<div class="oe_structure"/>
                             <div class = "row" >
                                     <h1>
