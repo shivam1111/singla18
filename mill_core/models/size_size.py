@@ -43,6 +43,10 @@ class Size(models.Model):
     )
     remarks = fields.Text()
 
+    def action_recompute_name(self):
+        self._compute_name()
+
+
     # ---------- DISPLAY NAME ----------
     @api.depends('corner_id', 'width_mm', 'thickness_mm', 'diameter_mm')
     def _compute_name(self):

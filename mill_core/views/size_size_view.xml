@@ -6,6 +6,9 @@
         <field name="model">size.size</field>
         <field name="arch" type="xml">
             <list editable="bottom" delete="true"  >
+                <header>
+                    <button name="action_recompute_name" string="Compute Name" type="object" class="btn-secondary"/>
+                </header>
                 <field name="name" width="20%" />
                 <field name = "shape"  width="10%" />
                 <field name="corner_id" width="10%" required="shape == 'flat'"/>
