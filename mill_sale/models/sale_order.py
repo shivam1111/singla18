@@ -151,7 +151,7 @@ class SaleOrderLine(models.Model):
             line.qty_delivered_mill = total_sent
             line.qty_pending_mill = max(0.0, line.product_uom_qty - total_sent)
 
-    def _action_launch_stock_rule(self, tracking_ids=None):
+    def _action_launch_stock_rule(self, **kwargs):
         """
         Intercepts Odoo's delivery generation engine.
         Bypasses stock move creation entirely for your rolling mill sales lines.
