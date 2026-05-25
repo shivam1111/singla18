@@ -29,6 +29,23 @@ class SaleOrder(models.Model):
         compute="_compute_total_qty",
         store=True
     )
+
+    # The field to store the concatenated names
+    all_size_names = fields.Char(
+        string="Sizes",
+        compute="_compute_all_size_names",
+        store=True  # Recommended for performance in tree views
+    )
+
+    @api.depends('order_line.size_id')
+    def _compute_all_size_names(self):
+        for order in self:
+            # Collect unique names and filter out empty values
+            sizes = order.order_line.mapped('size_id.name')
+            # Remove duplicates and join with a comma
+            unique_sizes = list(set(filter(None, sizes)))
+            order.all_size_names = "| ".join(unique_sizes)
+
     @api.depends('order_line.product_uom_qty','order_line.qty_delivered_mill','order_line.qty_pending_mill')
     def _compute_total_qty(self):
         for order in self:

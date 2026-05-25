@@ -90,6 +90,7 @@
                 <field name = "x_dispatch_qty" />
                 <field name = "x_balance_qty" />
                 <field name = "note" string = "Note"/>
+                <field name = "all_size_names" />
             </xpath>
         </field>
     </record>
