@@ -11,6 +11,7 @@
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
                 <field name="x_booking_date" />
+                <field name = "is_loading" />
             </xpath>
             <xpath expr="//field[@name='order_line']/list/field[@name='qty_delivered']" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -82,6 +83,7 @@
             <xpath expr ="//field[@name='name']" position="after">
                 <field name = "x_booking_date" />
             </xpath>
+
             <xpath expr ="//field[@name='company_id']" position="after">
                 <field name = "x_line_price_unit" />
                 <field name = "x_total_qty" />
