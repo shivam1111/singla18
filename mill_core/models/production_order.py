@@ -12,6 +12,8 @@ class ProductionOrderLine(models.Model):
         for i in self:
             if i.size_id and i.size_id.section_weight_kg_m:
                 i.flat_length = i.kg_per_pc / i.size_id.section_weight_kg_m
+            else:
+                i.flat_length = 0.0
 
     @api.model_create_multi
     def create(self, vals):
