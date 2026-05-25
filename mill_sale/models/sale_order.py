@@ -3,6 +3,8 @@ from odoo import models, fields, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    x_booking_date = fields.Date(string="Booking Date", default=fields.Date.context_today)
+
     # A simple custom ledger table to log dispatches manually
     dispatch_ledger_ids = fields.One2many(
         'sale.order.dispatch.line',

@@ -9,7 +9,9 @@
             <xpath expr="//field[@name='order_line']/list/field[@name='product_id']" position="before">
                 <field name="size_id"/>
             </xpath>
-
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="x_booking_date" />
+            </xpath>
             <xpath expr="//field[@name='order_line']/list/field[@name='qty_delivered']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -60,7 +62,7 @@
         <field name="inherit_id" ref="sale.sale_order_tree"/>
         <field name="arch" type="xml">
             <xpath expr ="//field[@name='date_order']" position="attributes">
-                <attribute name="column_invisible"></attribute>
+                <attribute name="column_invisible">1</attribute>
             </xpath>
             <xpath expr ="//field[@name='user_id']" position="attributes">
                 <attribute name="column_invisible">1</attribute>
@@ -76,6 +78,9 @@
             </xpath>
             <xpath expr ="//field[@name='invoice_status']" position="attributes">
                 <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr ="//field[@name='name']" position="after">
+                <field name = "x_booking_date" />
             </xpath>
             <xpath expr ="//field[@name='company_id']" position="after">
                 <field name = "x_line_price_unit" />
