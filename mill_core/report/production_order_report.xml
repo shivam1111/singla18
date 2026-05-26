@@ -13,29 +13,27 @@
                                     </h1>
                             </div>
                             <div class = "row"  >
-                                <table class = "table table-bordered">
+                                <table class = "table table-bordered o_list_table">
 									<thead>
-										<th>Bundle No.</th>
-										<th>Size</th>
-										<th>Tolerance</th>
-										<th>Corner</th>
-										<th>Pcs</th>
-										<th>Kg/Pc</th>
-										<th>Qty</th>
-										<th>Grade</th>
-										<th>Furncace</th>
-										<th>CC</th>
-										<th>Heat No</th>
-										<th>Inspection</th>
-										<th>Remarks</th>
+										<th width="5%">Bundle No.</th>
+										<th width="10%">Size</th>
+										<th width="10%">Tolerance</th>
+										<th width="5%">Pcs</th>
+										<th width="5%">Kg/Pc</th>
+										<th width="5%">Qty</th>
+										<th width="10%">Grade</th>
+										<th width="10%">Furncace</th>
+										<th width="5%">CC</th>
+										<th width="10%">Heat No</th>
+										<th width="5%">Inspection</th>
+										<th width="15%">Remarks</th>
 									</thead>
                                     <tbody>
 										<t t-foreach = "doc.line_ids" t-as = "l">
 											<tr>
-												<td><t t-esc="l.name" /></td>
+												<td ><t t-esc="l.name" /></td>
 												<td><t t-esc="l.size_id.name" /></td>
 												<td><t t-esc="l.tolerance or '-'" /></td>
-												<td><t t-esc="l.corner_id.name" /></td>
 												<td><t t-esc="l.pcs" /></td>
 												<td><t t-esc="l.kg_per_pc" /></td>
 												<td><t t-esc="l.qty" /></td>
@@ -50,7 +48,6 @@
                                     </tbody>
                                     <tr>
                                             <td><strong>Total</strong></td>
-                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
