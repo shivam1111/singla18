@@ -25,8 +25,8 @@
 										<th width="10%">Furncace</th>
 										<th width="5%">CC</th>
 										<th width="10%">Heat No</th>
-										<th width="2%">Inspection</th>
-										<th width="18%">Remarks</th>
+										<th width="1%">Insp</th>
+										<th width="19%">Remarks</th>
 									</thead>
                                     <tbody>
 										<t t-foreach = "doc.line_ids" t-as = "l">
