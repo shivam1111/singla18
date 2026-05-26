@@ -18,7 +18,7 @@
                             <tbody>
                                 <t t-foreach="docs.sorted(key = lambda r:r.partner_id.name)" t-as="doc">
                                     <tr>
-                                        <td class = "text-center"><span t-field="doc.booking_date" t-options='{"format": "MM/dd/yyyy"}'/></td>
+                                        <td class = "text-center"><span t-field="doc.x_booking_date" t-options='{"format": "MM/dd/yyyy"}'/></td>
                                         <td class = "text-center"><t t-esc="doc.all_size_names"/></td>
                                         <td class = "text-center"><t t-esc="doc.x_line_price_unit"/></td>
                                         <td class = "text-center"><span t-field="doc.x_total_qty"/></td>
