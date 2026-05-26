@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <template id="template_orders_list">
+       <t t-call="web.html_container">
+               <t t-call="web.external_layout">
+                   <div class="page">
+                       <div class="oe_structure"/>
+                        <table class = "table table-bordered">
+                            <thead class="thead-dark">
+                                <th>Booking Date</th>
+                                <th>Sizes</th>
+                                <th>Rate</th>
+                                <th>Ordered Qty</th>
+                                <th>Completed Qty</th>
+                                <th>Balance</th>
+                                <th>Dispatch Details</th>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs.sorted(key = lambda r:r.partner_id.name)" t-as="doc">
+                                    <tr>
+                                        <td class = "text-center"><span t-field="doc.booking_date" t-options='{"format": "MM/dd/yyyy"}'/></td>
+                                        <td class = "text-center"><t t-esc="doc.size"/></td>
+                                        <td class = "text-center"><t t-esc="doc.net_rate"/></td>
+                                        <td class = "text-center"><span t-field="doc.order_qty"/></td>
+                                        <td class = "text-center"><span t-field="doc.completed_qty"/></td>
+                                        <td class = "text-center"><span t-field="doc.balance"/></td>
+                                        <t t-set="details" t-value = "''" />
+                                        <t t-foreach="doc.line_completed_ids" t-as="line_id">
+                                            <t t-if="line_id.invoice">
+                                                <t t-set = "details" t-value = "details+str(line_id.completed_qty)+'MT-INV'+line_id.invoice+ '| '" />
+                                            </t>
+                                        </t>
+                                        <td class = "text-center"><span t-esc="details"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                   </div>
+           </t>
+       </t>
+   </template>
+</odoo>
