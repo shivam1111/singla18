@@ -16,7 +16,9 @@
        		<field name="model">production.order</field>
        		<field name="arch" type="xml">
        			<form string = "Production Order">
-						<group col="6">
+                    <div class="oe_button_box" name="button_box">
+					</div>
+					<group col="6">
 							<group colspan="3">
 									<field name = "name" readonly="1" />
 							</group>

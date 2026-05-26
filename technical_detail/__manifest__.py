@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         # Views
         "views/technical_detail_view.xml",
+        "views/production_order_view.xml"
         # Reports
     ],
     'demo': [
