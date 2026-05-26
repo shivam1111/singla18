@@ -19,6 +19,8 @@
         # Views
         "views/sale_order_view.xml",
         # Reports
+        'report/ir_actions_report.xml',
+        'report/report_orders_list.xml',
     ],
     'demo': [
     ],
