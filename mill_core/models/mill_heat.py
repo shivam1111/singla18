@@ -74,7 +74,7 @@ class Heat(models.Model):
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
-        args+=[('furnace_heat_no', operator, name)]
+        args+=['|',('furnace_heat_no', operator, name),('name',operator,name)]
         return  super(Heat, self).name_search(name, args, operator, limit)
 
     # 1. This controls WHAT the user sees inside the dropdown list rows
