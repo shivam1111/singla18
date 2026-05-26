@@ -2,6 +2,7 @@ from odoo import models, fields, api
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+    _order = "x_booking_date asc"
 
     is_loading = fields.Boolean("Loading Inclusive")
 
