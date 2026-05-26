@@ -9,6 +9,7 @@
                 <field name = "size_id" />
                 <field name = "length_primary" />
                 <field name = "secondary_length" />
+                <field name = "remarks" optional="hide" />
             </list>
         </field>
     </record>

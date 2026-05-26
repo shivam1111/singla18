@@ -9,3 +9,4 @@ class TechnicalDetail(models.Model):
     size_id = fields.Many2one('size.size','Size')
     length_primary = fields.Float("Primary Length")
     secondary_length = fields.Float("Secondary Length")
+    remarks = fields.Char("Remarks")
