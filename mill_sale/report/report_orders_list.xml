@@ -25,7 +25,7 @@
                                         <td class = "text-center"><span t-field="doc.x_dispatch_qty"/></td>
                                         <td class = "text-center"><span t-field="doc.x_balance_qty"/></td>
                                         <t t-set="details" t-value = "''" />
-                                        <t t-foreach="doc.order_line" t-as="line_id">
+                                        <t t-foreach="doc.dispatch_ledger_ids" t-as="line_id">
                                             <t t-if="line_id.invoice_no">
                                                 <t t-set = "details" t-value = "details+str(line_id.qty_dispatched)+'MT-INV'+line_id.invoice_no+ '| '" />
                                             </t>
