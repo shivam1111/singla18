@@ -24,7 +24,8 @@
        		<field name="arch" type="xml">
        			<form string  = "Production Register" >
 					<header>
-						<button invisible="state == 'done' "  name="action_confirm" type="object" string="Confirm" class="oe_highlight" />
+						<button invisible="state == 'done' "  confirm="Are you sure you want to execute the production ?"
+								name="action_confirm" type="object" string="Confirm" class="oe_highlight" />
 <!--	Will add this when states functionality starts						states="draft"-->
 						<button invisible="state == 'draft' "  name="action_draft" type="object" string="Set to Draft" class="oe_highlight" />
 						<field name = "state" widget="statusbar" clickable="1" statusbar_visible="draft,done" />
@@ -198,7 +199,12 @@
 		<field name="arch" type="xml">
 			<form string  = "Production" >
 				<header>
-					<button invisible="state == 'draft' or return_picking_id"  name="action_return_picking" type="object" string="Return" class="oe_highlight" />
+					<button invisible="state == 'draft' or return_picking_id"
+							groups="base.group_system"
+							confirm = "Are you sure you want to cancel this Production Line ?"
+							name="action_return_picking" type="object"
+							string="Return" class="oe_highlight" />
+					
 					<field name = "state" widget="statusbar" clickable="1" statusbar_visible="draft,done" />
 				</header>
 				<sheet>
