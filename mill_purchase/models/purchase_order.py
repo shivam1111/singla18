@@ -2,6 +2,7 @@ from odoo import models, fields, api
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
+    _order = "date_order asc"
 
     # Field to select the Broker on the contract
     broker_id = fields.Many2one(
