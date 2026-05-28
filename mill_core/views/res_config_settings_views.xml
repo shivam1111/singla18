@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.mill</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form" position="inside">
+            <app title="Mill Google Drive" string="Mill Google Drive" name="mill_google_drive" data-key="mill_google_drive">
+                <block title="Google Drive Integration" name="google_drive_integration">
+                    <setting help="Enter the absolute path to your Service Account JSON file on the Ubuntu server.">
+                        <field name="mill_google_drive_json_path"/>
+                    </setting>
+                </block>
+            </app>
+        </xpath>
+    </field>
+    </record>
+</odoo>

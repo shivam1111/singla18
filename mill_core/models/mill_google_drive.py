@@ -36,9 +36,11 @@ class MillGoogleDriveWizard(models.TransientModel):
     def _get_drive_service(self):
         """ Dynamically finds the JSON file inside the module folder """
         try:
-            # This replaces get_resource_path and get_module_resource
-            # Format: 'module_name/path/to/file'
-            json_path = tools.file_path('mill_core/data/credentials.json')
+            # Fetch the path from Odoo System Parameters
+            # The key we'll use is 'mill_google_drive.json_path'
+            param_obj = self.env['ir.config_parameter'].sudo()
+            json_path = param_obj.get_param('mill_google_drive.json_path')
+            # json_path = tools.file_path('mill_core/data/credentials.json')
         except FileNotFoundError:
             raise UserError(_("JSON Credentials file not found in the module data folder."))
         # If it's in the root of the module, use:
