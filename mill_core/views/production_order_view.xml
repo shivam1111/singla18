@@ -17,6 +17,14 @@
        		<field name="arch" type="xml">
        			<form string = "Production Order">
                     <div class="oe_button_box" name="button_box">
+						<button name="action_open_mill_mds_viewer" 
+                    			type="object" 
+                    			class="oe_stat_button" 
+                    			icon="fa-google">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_text">Drive</span>
+								</div>
+							</button>
 					</div>
 					<group col="6">
 							<group colspan="3">

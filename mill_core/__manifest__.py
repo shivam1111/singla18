@@ -28,6 +28,7 @@
         "views/stock_picking_view.xml",
         "views/mill_production_view.xml",
         "views/production_order_view.xml",
+        "views/mill_google_drive_views.xml",
         # Reports
         "report/ir_actions_report.xml",
         "report/production_order_report.xml",

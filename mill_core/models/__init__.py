@@ -8,3 +8,4 @@ from . import stock_picking
 from . import stock_move
 from . import mill_production
 from . import production_order
+from . import mill_google_drive

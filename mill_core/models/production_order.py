@@ -75,6 +75,20 @@ class ProductionOrder(models.Model):
         result = super(ProductionOrder, self).create(vals)
         return result
 
+    def action_open_mill_mds_viewer(self):
+        self.ensure_one()
+        return {
+            'name': _('MDS Viewer'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'mill.google.drive.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_res_model': self._name,
+                'default_res_id': self.id,
+            }
+        }    
+
     name = fields.Char('Name',default = '/')
     date = fields.Date('Date',required=True,default = fields.Date.today)
     line_ids = fields.One2many('production.order.line', 'production_id', 'Order Lines')

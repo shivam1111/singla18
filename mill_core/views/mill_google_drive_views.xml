@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mill_google_drive_wizard_form" model="ir.ui.view">
+        <field name="name">mill.google.drive.wizard.form</field>
+        <field name="model">mill.google.drive.wizard</field>
+        <field name="arch" type="xml" >
+            <form string="Mill Google Drive Finder">
+                <header>
+                    <field name="file_query" placeholder="Enter Item Code (e.g. 94FLT514)" class="oe_inline"/>
+                    <button name="action_search_file" 
+                            string="Search &amp; View" 
+                            type="object" 
+                            class="oe_highlight" 
+                            icon="fa-search"/>
+                </header>
+                <sheet>
+                    <div style="min-height: 400px;">
+                        <field name="mds_iframe_url" widget="html" nolabel="1"/>
+                    </div>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
