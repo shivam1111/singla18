@@ -277,7 +277,7 @@
                                             <td style="border: 1px solid #333;"><span style="font-weight: bold; color: green;">YES</span></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-left" style="border: 1px solid #333;">UT Test (Ultrasonic)</td>
+                                            <td class="text-left" style="border: 1px solid #333;">UT Test (EN10308:2001)</td>
                                             <td style="border: 1px solid #333;">
                                                 <span t-if="o.is_ut" style="font-weight: bold; color: green;">YES</span>
                                                 <span t-if="not o.is_ut" style="color: #777;">NO</span>
