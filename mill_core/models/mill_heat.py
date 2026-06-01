@@ -30,7 +30,7 @@ class MillHeatChem(models.Model):
     max_val = fields.Float("Max Value",digits=(10, 3))
     furnace_val  = fields.Float("Furnace Value %",digits=(10, 3))
     actual_val = fields.Float(
-        string="Actual %",digits=(10, 3)
+        string="Actual %",digits=(10, 4)
     )
 
     _sql_constraints = [
