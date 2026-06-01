@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
-    _order = "date_order asc"
+    _order = "x_booking_date asc"
 
     # Field to select the Broker on the contract
     broker_id = fields.Many2one(
@@ -34,6 +34,8 @@ class PurchaseOrder(models.Model):
         compute="_compute_qty_balance",
         store=True
     )
+
+    x_booking_date = fields.Date(string="Booking Date", default=fields.Date.context_today)
 
     @api.depends('x_line_product_qty', 'x_line_qty_received')
     def _compute_qty_balance(self):

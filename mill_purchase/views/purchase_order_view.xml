@@ -17,6 +17,7 @@
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="broker_id" options="{'no_create': True}"/>
+                <field name="x_booking_date" />
             </xpath>
         </field>
     </record>
@@ -33,6 +34,7 @@
                 <attribute name="column_invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
+                <field name = "x_booking_date" />
                 <field name="broker_id" optional="show"/>
                 <field name="order_line" widget="many2many_tags" string="Products/Grades" optional="show"/>
                 <field name="x_line_product_qty" />
@@ -46,7 +48,7 @@
                 <attribute name="column_invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='date_order']" position="attributes">
-                <attribute name="column_invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='date_approve']" position="attributes">
                 <attribute name="column_invisible">1</attribute>
