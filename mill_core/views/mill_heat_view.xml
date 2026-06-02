@@ -65,6 +65,7 @@
 	                    		<field name="chemistry_result"  decoration-success="chemistry_result == 'pass'" decoration-danger="chemistry_result == 'fail'"/>
                                 <field name = "chemistry_fail_reason" invisible="chemistry_result == 'pass'" />
                                 <field name = "size_id" placeholder = "Adding Size Manually"/>
+                                <field name = "size" widget="selection" />
 	                    	</group>
                         </group>
                         <group string = "Inspection" col="6">
@@ -157,6 +158,32 @@
            parent= "mill_core.menu_mill_heats"
            sequence= "4"
            action = "action_process_route_views"
+       />
+
+    <!-- ingot.size -->
+    <record id="view_ingot_size_tree" model="ir.ui.view">
+        <field name="name">ingot.size.tree</field>
+        <field name="model">ingot.size</field>
+        <field name="arch" type="xml">
+            <list string = "Process Route" editable="bottom">
+                <field name = "name" />
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ingot_size_views" model="ir.actions.act_window">
+        <field name="name">Ingot Size</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ingot.size</field>
+        <field name="view_mode">list</field>
+        <field name = "context"></field>
+    </record>
+
+   <menuitem
+           id= "mill_ingot_size_submenu_v2"
+           parent= "mill_core.menu_mill_heats"
+           sequence= "4"
+           action = "action_ingot_size_views"
        />
 
 </odoo>

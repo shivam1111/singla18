@@ -176,4 +176,4 @@ class Heat(models.Model):
     )
     chemistry_fail_reason = fields.Text(readonly=True)
     move_id = fields.Many2one('stock.move','Receipt')
-    size_id = fields.Many2one('size.size','Size',help="Used in case of trading if we want to add sizes manually")
+    size_id = fields.Many2one('size.size','Rolling Size',help="Used in case of trading if we want to add sizes manually")

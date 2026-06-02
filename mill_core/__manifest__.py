@@ -9,7 +9,7 @@
     'summary': 'Defines mills core requirements',
     'website': 'https://www.singlasteel.in',
     'depends': [
-        'base_setup',
+        'base',
         'sale','purchase','stock','report_xlsx',
     ],
     'data': [
