@@ -73,7 +73,8 @@ class PurchaseOrderLine(models.Model):
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    po_net_rate = fields.Monetary(related='purchase_id.order_line.net_rate', string='PO Net Rate/MT')
+    po_net_rate = fields.Monetary(related='move_ids_without_package.purchase_line_id.net_rate', string='PO Net Rate/MT')
+    # po_net_rate = fields.Monetary(related='purchase_id.order_line.net_rate', string='PO Net Rate/MT')
     # Required field by Odoo to handle currency symbols cleanly
     currency_id = fields.Many2one(
         related='purchase_id.currency_id',
