@@ -30,6 +30,7 @@
         "views/production_order_view.xml",
         "views/mill_google_drive_views.xml",
         "views/res_config_settings_views.xml",
+        "views/production_plan.xml",
         # Reports
         "report/ir_actions_report.xml",
         "report/production_order_report.xml",

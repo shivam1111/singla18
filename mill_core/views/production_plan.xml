@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VIEWS -->
+    <record id="view_production_plan_tree" model="ir.ui.view">
+        <field name="name">production.plan.tree</field>
+        <field name="model">production.plan</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" delete="true"  >
+                <field name="size_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"  />
+                <field name = "partner_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}" />
+                <field name = "grade_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                <field name = "qty" />
+                <field name = "remarks"/>
+            </list>
+        </field>
+    </record>
+
+<!--    size search view-->
+    <record id="view_production_plan_search" model="ir.ui.view">
+        <field name="name">production.plan.search</field>
+        <field name="model">production.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Global text search -->
+                <field name="size_id" string="Size" />
+                <field name="partner_id"/>
+                <!-- Group by -->
+                <group expand="0" string="Group By">
+                    <filter string="Size"
+                            name="group_size"
+                            context="{'group_by': 'size_id'}"/>
+                    <filter string="Partner"
+                            name="group_partner_id"
+                            context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_production_plan" model="ir.actions.act_window">
+        <field name="name">Production Planning</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">production.plan</field>
+        <field name="view_mode">list</field>
+        <field name = "search_view_id" ref="mill_core.view_production_plan_search" />
+    </record>
+
+    <menuitem
+           id= "submenu_production_plan"
+           parent= "mill_core.menu_mill_production"
+           sequence= "100"
+           action = "action_production_plan"
+            />
+
+</odoo>

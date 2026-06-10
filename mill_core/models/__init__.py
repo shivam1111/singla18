@@ -10,3 +10,4 @@ from . import mill_production
 from . import production_order
 from . import mill_google_drive
 from . import res_config_settings
+from . import production_plan
