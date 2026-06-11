@@ -15,3 +15,4 @@ access_mill_production_line,mill.production.line,model_mill_production_line,base
 access_process_route,process.route,model_process_route,base.group_user,1,1,1,1
 access_maill_google_drive_wizard	,mill.google.drive.wizard,model_mill_google_drive_wizard,base.group_user,1,1,1,1
 access_production_plan,production.plan,model_production_plan,base.group_user,1,1,1,1
+access_sale_line_selection_wizard,access_sale_line_selection_wizard,model_sale_line_selection_wizard,base.group_user,1,1,1,1
