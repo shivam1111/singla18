@@ -158,6 +158,11 @@ class MillProduction(models.Model):
             except ZeroDivisionError:
                 po.production_mt = 0.0
 
+    @api.depends('production_line_ids', 'production_line_ids.qty', 'coal')
+    def _compute_coal_mt(self):
+        for po in self:
+            self.coal_pmt = self.coal/po.total_production
+
     @api.model_create_multi
     def create(self, vals):
         if self.env.user.has_group('stock.group_stock_manager'):
@@ -272,3 +277,5 @@ class MillProduction(models.Model):
         string='All Stock Moves (Delivery & Returns)',
         compute_sudo=True
     )
+    coal = fields.Float(string="Coal")
+    coal_pmt = fields.Float('Coal/MT', compute='_compute_coal_mt', digits=(16, 2))

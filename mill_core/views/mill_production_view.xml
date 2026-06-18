@@ -40,6 +40,7 @@
 	                    		<group>
 	                    			<field name = "date" />
 	                    			<field name = "hours" />
+									<field name = "coal" />
 	                    			<field name = "mill_kara"/>
 	                    			<field name = "furnace_kara"/>
 	                    			<field name = "miss_roll" />
@@ -55,6 +56,7 @@
 									<field name = "scrap_percentage"/>
 									<field name = "units_per_mt"/>
 									<field name = "png_net_mt"/>
+									<field name = "coal_pmt" />
 									<field name = "production_mt"  />
 									<field name = "solar_net" />
 
