@@ -12,7 +12,7 @@
 					<field name = "total_production" sum = "Total Production" />
 					<field name = "units_per_mt" avg = "Units/MT" />
 					<field name = "production_mt" avg="Production Rate" />
-					<field name = "png_net_mt" avg="Average Gas Consumption" />
+					<field name = "coal_pmt" avg="Average Coal Consumption" />
 					<field name = "solar_net" sum="Total Solar Production" />
        			</list>
        		</field>
