@@ -161,7 +161,10 @@ class MillProduction(models.Model):
     @api.depends('production_line_ids', 'production_line_ids.qty', 'coal')
     def _compute_coal_mt(self):
         for po in self:
-            po.coal_pmt = po.coal/po.total_production
+            try:
+                po.coal_pmt = po.coal/po.total_production
+            except:
+                po.coal_pmt = 0.0
 
     @api.model_create_multi
     def create(self, vals):
