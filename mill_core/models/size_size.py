@@ -24,7 +24,7 @@ class Size(models.Model):
         compute='_compute_name',
         store=True,index=True
     )
-
+    name_1 = fields.Char(string="Name",compute="_compute_name",store=True)
     corner_id = fields.Many2one('corner.type',name = "Corner Type",required=True)
     width_mm = fields.Float("Width (mm)", digits=(10, 2))
     thickness_mm = fields.Float("Thickness (mm)", digits=(10, 2))
@@ -53,8 +53,10 @@ class Size(models.Model):
         for rec in self:
             if rec.shape == 'round' and rec.diameter_mm:
                 rec.name = f"Ø {rec.diameter_mm:g}"
+                rec.name_1 = f"Ø {rec.diameter_mm:g}"
             elif rec.shape == 'flat' and rec.width_mm and rec.thickness_mm:
                 rec.name = f"{rec.width_mm:g}x{rec.thickness_mm:g}({rec.corner_id.name})"
+                rec.name_1 = f"{rec.width_mm:g}x{rec.thickness_mm:g}"
             else:
                 rec.name = "Undefined Size"
 

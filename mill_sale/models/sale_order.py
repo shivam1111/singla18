@@ -42,10 +42,10 @@ class SaleOrder(models.Model):
     def _compute_all_size_names(self):
         for order in self:
             # Collect unique names and filter out empty values
-            sizes = order.order_line.mapped('size_id.name')
+            sizes = order.order_line.mapped('size_id.name_1')
             # Remove duplicates and join with a comma
             unique_sizes = list(set(filter(None, sizes)))
-            order.all_size_names = "| ".join(unique_sizes)
+            order.all_size_names = " | ".join(unique_sizes)
 
     @api.depends('order_line.product_uom_qty','order_line.qty_delivered_mill','order_line.qty_pending_mill')
     def _compute_total_qty(self):
