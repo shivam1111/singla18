@@ -1,13 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_order_product_search_inherit" model="ir.ui.view">
-        <field name="name">sale.report.search.inherit</field>
-        <field name="model">sale.report</field>
-        <field name="inherit_id" ref="sale.view_order_product_search"/>
+
+    <record id="view_sale_report_size_balance_pivot" model="ir.ui.view">
+        <field name="name">sale.report.size.balance.pivot</field>
+        <field name="model">sale.report.size.balance</field>
         <field name="arch" type="xml">
-            <xpath expr="//group" position="inside">
-                <filter string="Size" name="group_by_size" context="{'group_by':'size_id'}"/>
-            </xpath>
+            <pivot string="Size Dispatch &amp; Balance Analysis" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="size_id" type="row"/>
+
+                <field name="qty_ordered" type="measure"/>
+                <field name="qty_dispatched" type="measure"/>
+                <field name="qty_balance" type="measure"/>
+            </pivot>
         </field>
     </record>
+
+    <record id="view_sale_report_size_balance_graph" model="ir.ui.view">
+        <field name="name">sale.report.size.balance.graph</field>
+        <field name="model">sale.report.size.balance</field>
+        <field name="arch" type="xml">
+            <graph string="Size Dispatch &amp; Balance Analysis" type="bar" stacked="0" sample="1">
+                <field name="product_id"/>
+                <field name="qty_balance" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_sale_report_size_balance_search" model="ir.ui.view">
+        <field name="name">sale.report.size.balance.search</field>
+        <field name="model">sale.report.size.balance</field>
+        <field name="arch" type="xml">
+            <search string="Size Dispatch &amp; Balance Search">
+                <field name="partner_id" string="Customer"/>
+                <field name="product_id" string="Grade (Product)"/>
+                <field name="size_id" string="Size"/>
+
+                <filter string="Pending Balance Only" name="filter_pending_balance" domain="[('qty_balance', '>', 0)]"/>
+                <filter string="Fully Dispatched" name="filter_fully_dispatched" domain="[('qty_balance', '&lt;=', 0)]"/>
+
+                <separator/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="group_partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Grade (Product)" name="group_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Size" name="group_size" context="{'group_by':'size_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_report_size_balance" model="ir.actions.act_window">
+        <field name="name">Size Dispatch &amp; Balance</field>
+        <field name="res_model">sale.report.size.balance</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="search_view_id" ref="view_sale_report_size_balance_search"/>
+        <field name="context">{'search_default_filter_pending_balance': 1}</field>
+    </record>
+
+    <menuitem id="menu_sale_report_size_balance"
+              name="Size Dispatch &amp; Balance"
+              action="action_sale_report_size_balance"
+              parent="sale.menu_sale_report"
+              sequence="25"/>
 </odoo>
