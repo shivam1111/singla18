@@ -40,6 +40,6 @@ class SaleReportSizeBalance(models.Model):
                 ) dl ON dl.sale_line_id = sol.id
 
                 -- Only report on confirmed sales orders
-                WHERE so.state IN ('sale', 'done')
+                WHERE so.state IN ('sale', 'done') and so.locked = false
             )
         """)
