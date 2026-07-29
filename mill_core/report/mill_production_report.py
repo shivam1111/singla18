@@ -80,7 +80,7 @@ class MillProductionReport(models.AbstractModel):
 
             summary_row_index = max(row_counter,header_row_index+4)
             # Summary Printing
-            summary_row = ['Total Prod.',po.total_production,'PNG/MT',po.png_net_mt,'MD/MT',po.md_mt,'Hours',po.hours,'Units/MT',po.units_per_mt]
+            summary_row = ['Total Prod.',po.total_production,'Coal',po.coal,'MD/MT',po.md_mt,'Hours',po.hours,'Units/MT',po.units_per_mt]
             summary_format = workbook.add_format({'bold':True})
             summary_format.set_border()
             summary_format.set_align('center')

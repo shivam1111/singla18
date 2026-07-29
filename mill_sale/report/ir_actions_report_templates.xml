@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_only_desc" inherit_id="sale.report_saleorder_document">
+
+        <!-- Target the table cell where the description is printed -->
+        <xpath expr="//table[contains(@class, 'o_main_table')]//tbody//tr//td[@name='td_name']" position="replace">
+            <td name="td_name">
+                <!-- Option A: Prints the line's default text field -->
+                <span t-field="line.name"/>
+
+                <!-- Option B: IF you created a brand new custom field for descriptions, use this instead: -->
+                <!-- <span t-field="line.x_custom_description"/> -->
+            </td>
+        </xpath>
+
+    </template>
+</odoo>

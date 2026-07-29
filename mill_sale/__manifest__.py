@@ -22,6 +22,7 @@
         'report/ir_actions_report.xml',
         'report/report_orders_list.xml',
         'report/sale_report.xml',
+        'report/ir_actions_report_templates.xml',
     ],
     'demo': [
     ],
