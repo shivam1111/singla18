@@ -4,6 +4,12 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     _order = "x_booking_date asc"
 
+    @api.onchange('partner_id')
+    def onchange_partner_id_customer(self):
+        for po in self:
+            if po.partner_id.broker_id:
+                po.broker_id = po.partner_id.broker_id
+
     # Field to select the Broker on the contract
     broker_id = fields.Many2one(
         'res.partner',

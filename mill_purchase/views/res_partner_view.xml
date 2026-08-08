@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_form_rolling_mill" model="ir.ui.view">
+        <field name="name">res.partner.purchase.order.form.rollng.mill</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Add fields inside the PO Lines notebook grid -->
+            <xpath expr="//span[@name='address_name']" position="before">
+                <field name = "broker_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
