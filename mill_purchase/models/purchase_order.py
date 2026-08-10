@@ -6,7 +6,6 @@ class PurchaseOrder(models.Model):
 
     @api.onchange('partner_id')
     def onchange_partner_id_customer(self):
-        return
         for po in self:
             if po.partner_id.broker_id:
                 po.broker_id = po.partner_id.broker_id
